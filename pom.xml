@@ -12,14 +12,15 @@
         <module>sc-demo-dao</module>
         <module>sc-demo-entity</module>
         <module>sc-demo-web</module>
+        <module>sc-demo-eureka</module>
     </modules>
 
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>1.4.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository https://github.com/spring-cloud/spring-cloud-netflix/issues/1484-->
     </parent>
 
     <properties>
@@ -32,26 +33,11 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 
     <dependencyManagement>
         <dependencies>
@@ -64,7 +50,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
 
 </project>
