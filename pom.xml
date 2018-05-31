@@ -12,7 +12,8 @@
         <module>sc-demo-dao</module>
         <module>sc-demo-entity</module>
         <module>sc-demo-web</module>
-        <module>sc-demo-eureka</module>
+        <module>sc-demo-eureka-server</module>
+        <module>sc-demo-euerka-client</module>
     </modules>
 
 

@@ -1,0 +1,35 @@
+#节点之间相互注册
+#当应用以peer1启动时候，配置Erueka Server的主机名称为peer1，并将其注册到http://peer2:8761/eureka/这个节点上，同理peer2会注册到peer1上
+spring:
+  application:
+    name: sc-demo-eureka-server
+#使用---将application.yml分为3段，第二段和第三段给spring.properties指定一个值，该值表示它所在的那段内容应该在那个profile里
+#上边的没有指点profiles 所有对所有的都生效
+---
+spring:
+  #指定profile=peer1
+  profiles: peer1
+server:
+  port: 8760
+eureka:
+  instance:
+    #指定当profile=peer1时，主机名是peer1
+    hostname: peer1
+  client:
+    service-url:
+      defaultZone: http://localhost:8760/eureka
+---
+spring:
+  #指定profile=peer1
+  profiles: peer2
+server:
+  port: 8761
+eureka:
+  instance:
+    #指定当profile=peer1时，主机名是peer1
+    hostname: peer2
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
