@@ -1,4 +1,4 @@
-package com.xn.demo.controller;
+package demo.controller;
 
 import com.xn.demo.dao.UserRepository;
 import com.xn.demo.entity.User;

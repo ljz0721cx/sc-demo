@@ -8,6 +8,7 @@ import java.math.BigDecimal;
  * @date 2018/5/30 20:21
  */
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
