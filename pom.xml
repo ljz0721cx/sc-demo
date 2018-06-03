@@ -13,7 +13,7 @@
         <module>sc-demo-entity</module>
         <module>sc-demo-web</module>
         <module>sc-demo-eureka-server</module>
-        <module>sc-demo-euerka-client</module>
+        <module>sc-demo-eureka-client</module>
     </modules>
 
 

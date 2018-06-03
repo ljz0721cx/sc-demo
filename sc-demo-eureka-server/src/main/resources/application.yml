@@ -3,6 +3,18 @@
 spring:
   application:
     name: sc-demo-eureka-server
+
+
+#添加安全授权
+security:
+  basic:
+    enabled: true #开启基于HTTP basic的认证
+  user:
+    name: janle #配置登录的账户是
+    password: janle #配置登录的密码
+#server:
+#  port: 8760
+
 #使用---将application.yml分为3段，第二段和第三段给spring.properties指定一个值，该值表示它所在的那段内容应该在那个profile里
 #上边的没有指点profiles 所有对所有的都生效
 ---
