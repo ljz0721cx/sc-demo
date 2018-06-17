@@ -1,10 +1,10 @@
 package com.xn.demo.functions.finish.behavior;
 
-import com.jd.appoint.service.order.functions.annos.AppointFinish;
-import com.jd.appoint.service.order.functions.domains.Domains;
-import com.jd.appoint.service.order.functions.finish.BehaviorAction;
-import com.jd.appoint.service.order.functions.finish.dtos.FinishReq;
-import com.jd.appoint.service.order.functions.finish.dtos.FinishRsp;
+import com.xn.demo.functions.annos.AppointFinish;
+import com.xn.demo.functions.domains.Domains;
+import com.xn.demo.functions.finish.BehaviorAction;
+import com.xn.demo.functions.finish.dtos.FinishReq;
+import com.xn.demo.functions.finish.dtos.FinishRsp;
 import org.springframework.stereotype.Service;
 
 /**

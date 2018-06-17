@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>sc-demo-dao</module>
         <module>sc-demo-entity</module>
+        <module>sc-demo-dao</module>
         <module>sc-demo-web</module>
         <module>sc-demo-eureka-server</module>
         <module>sc-demo-eureka-client</module>
