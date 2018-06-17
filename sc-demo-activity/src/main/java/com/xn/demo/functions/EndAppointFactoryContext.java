@@ -185,6 +185,10 @@ public class EndAppointFactoryContext<T, R>
             return scanner;
         }
 
+        /**
+         * 狗仔注册bean定义的注册
+         * @param registry
+         */
         private AnnotationScanner(BeanDefinitionRegistry registry) {
             super(registry);
         }
@@ -209,6 +213,7 @@ public class EndAppointFactoryContext<T, R>
 
         @Override
         public boolean isCandidateComponent(AnnotatedBeanDefinition beanDefinition) {
+            //返回没有被过滤并被匹配上的bean的定义
             return super.isCandidateComponent(beanDefinition)
                     && beanDefinition.getMetadata().hasAnnotation(this.myAnnotationClazz.getName());
         }
