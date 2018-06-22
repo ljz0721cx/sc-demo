@@ -6,7 +6,7 @@ import com.xn.demo.functions.finish.BehaviorAction;
 /**
  * 取消行为接口,目前只是声明。如果需要在装载执行时候扩展可以日后扩展
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/12 20:29
  */
 public interface CancelBehavior<T, R> {

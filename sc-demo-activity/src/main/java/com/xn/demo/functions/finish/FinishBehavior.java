@@ -3,7 +3,7 @@ package com.xn.demo.functions.finish;
 /**
  * 完成预约的行为
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/12 21:05
  */
 public interface FinishBehavior<T,R> {

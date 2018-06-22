@@ -3,7 +3,7 @@ package com.xn.demo.functions.finish.dtos;
 /**
  * 核销结果
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 15:39
  */
 public enum CavResultEnum {

@@ -32,7 +32,7 @@ import java.util.Set;
  * 校验加载是否已经有配置
  * 构建生产策略的工厂
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 8:27
  */
 @Component

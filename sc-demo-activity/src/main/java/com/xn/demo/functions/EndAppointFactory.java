@@ -7,7 +7,7 @@ import com.xn.demo.functions.finish.FinishBehavior;
 /**
  * 预约单终态执行器生产工厂
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 8:19
  */
 public abstract class EndAppointFactory<T, R> {

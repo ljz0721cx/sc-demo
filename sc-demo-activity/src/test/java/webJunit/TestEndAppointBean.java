@@ -11,7 +11,7 @@ import org.junit.Test;
 import javax.annotation.Resource;
 
 /**
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/14 14:37
  */
 public class TestEndAppointBean extends JUnit4SpringContextTests {

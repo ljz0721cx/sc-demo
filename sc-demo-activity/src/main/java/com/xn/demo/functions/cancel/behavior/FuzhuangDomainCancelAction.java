@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * 默认核销接口接口
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 14:03
  */
 @AppointCancal(domain = Domains.GO_HOME, venderIds = {1})

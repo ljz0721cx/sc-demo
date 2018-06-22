@@ -3,7 +3,7 @@ package com.xn.demo.functions.finish.dtos;
 /**
  * 核销返回的bean
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 15:37
  */
 public class CavResp {

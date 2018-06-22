@@ -3,7 +3,7 @@ package com.xn.demo.functions.finish;
 /**
  * 执行完成的行为
  *
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 9:14
  */
 public interface BehaviorAction<T, R> {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
- * @author lijizhen1@jd.com
+ * @author Janle
  * @date 2018/6/13 9:38
  */
 @Target({ElementType.TYPE})
