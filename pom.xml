@@ -16,6 +16,8 @@
         <module>sc-demo-eureka-client</module>
         <module>sc-demo-feign</module>
         <module>sc-demo-activity</module>
+        <module>sc-demo-netty</module>
+        <module>sc-demo-ynk</module>
     </modules>
 
 
