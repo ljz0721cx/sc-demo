@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @author Janle qq:645905201
  * @date 2018/7/1 10:52
  */
-@Service
 public class TestCglibTarget {
 
     /**
