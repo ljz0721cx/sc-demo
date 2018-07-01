@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author lijizhen1@jd.com
+ * @author Janle qq:645905201
  * @date 2018/5/30 20:23
  */
 @Repository

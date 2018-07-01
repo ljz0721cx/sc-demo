@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @author lijizhen1@jd.com
+ * @author Janle qq:645905201
  * @date 2018/6/5 17:12
  */
 @EnableDiscoveryClient

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 声明一个eureka的客户端
- * @author lijizhen1@jd.com
+ * @author Janle qq:645905201
  * @date 2018/5/31 17:09
  */
 @SpringBootApplication
