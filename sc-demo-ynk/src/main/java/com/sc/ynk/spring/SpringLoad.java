@@ -32,14 +32,14 @@ public class SpringLoad implements InitializingBean, BeanPostProcessor, BeanName
     }
 
     @Override
-    public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
-        System.out.println("postProcessBeforeInitialization");
+    public Object postProcessBeforeInitialization(Object o, String beanName) throws BeansException {
+        System.out.println("postProcessBeforeInitialization beanName="+beanName);
         return o;
     }
 
     @Override
-    public Object postProcessAfterInitialization(Object o, String s) throws BeansException {
-        System.out.println("postProcessAfterInitialization");
+    public Object postProcessAfterInitialization(Object o, String beanName) throws BeansException {
+        System.out.println("postProcessAfterInitialization  beanName="+beanName);
         return o;
     }
 
