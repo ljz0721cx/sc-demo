@@ -20,14 +20,6 @@
         <module>sc-demo-ynk</module>
     </modules>
 
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository https://github.com/spring-cloud/spring-cloud-netflix/issues/1484-->
-    </parent>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -47,6 +39,13 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>Cairo-SR7</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>Camden.SR4</version>
@@ -56,4 +55,23 @@
         </dependencies>
     </dependencyManagement>
 
+   <build>
+       <pluginManagement>
+           <plugins>
+               <plugin>
+                   <groupId>org.springframework.boot</groupId>
+                   <artifactId>spring-boot-maven-plugin</artifactId>
+                   <configuration>
+                       <executable>true</executable>
+                       <additionalProperties>
+                           <encoding.source>${project.build.sourceEncoding}</encoding.source>
+                           <encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
+                           <java.source>${java.version}</java.source>
+                           <java.target>${java.version}</java.target>
+                       </additionalProperties>
+                   </configuration>
+               </plugin>
+           </plugins>
+       </pluginManagement>
+   </build>
 </project>
