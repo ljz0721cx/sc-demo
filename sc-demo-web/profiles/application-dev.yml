@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://139.129.201.48/test?characterEncoding=utf8
+    username: janle
+    password:
+  jpa:
+    properties:
+      hibernate:
+       ddl-auto: update
+      show_sql: true
+      format_sql: true
