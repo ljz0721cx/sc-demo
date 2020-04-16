@@ -1,6 +1,11 @@
 # sc-demo
 ## spring-boot + spring cloud + docker
 
+配置相关的类
+
+ribbon 配置类 DefaultClientConfigImpl
+hystrix配置类 HystrixCommandProperties
+
 ##eureka配置
 
 ```
