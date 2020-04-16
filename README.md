@@ -2,6 +2,8 @@
 ## spring-boot + spring cloud + docker
 
 ##eureka配置
+
+```
 #spring.application.name=eureka-server
 eureka.instance.appname=eureka-server
 eureka.instance.virtualHostName=eureka-server
@@ -53,9 +55,10 @@ server.undertow.direct-buffers=true
 server.undertow.max-regions=10
 #socket-binding="http"，保持长连接
 server.undertow.always-set-keep-alive=true
-
+```
 
 ##zuul配置
+```
 #spring.application.name=api-gateway-zuul
 eureka.instance.appname=api-gateway-zuul
 eureka.instance.virtualHostName=api-gateway-zuul
@@ -153,8 +156,9 @@ zuul.host.maxPerRouteConnections=1000
 zuul.host.max-per-route-connections=5
 zuul.host.socket-timeout-millis=60000
 zuul.host.connect-timeout-millis=60000
-
+```
 ##feign配置
+```
 #spring.application.name=feign-service-provider
 eureka.instance.appname=feign-service-provider
 eureka.instance.virtualHostName=feign-service-provider
@@ -256,8 +260,9 @@ hello-service-provider.ribbon.ReadTimeout=3000
 hello-service-provider.ribbon.listOfServers=localhost:8877,localhost:8878
 
 hello-service-provider.ribbon.EnablePrimeConnections=false
-
+```
 ## ribbon配置
+```
 #spring.application.name=ribbon-service-provider
 eureka.instance.appname=ribbon-service-provider
 eureka.instance.virtualHostName=ribbon-service-provider
@@ -339,3 +344,4 @@ ribbon.OkToRetryOnAllOperations=true
 ribbon.MaxAutoRetriesNextServer=10
 #单个节点重试最大值
 ribbon.MaxAutoRetries=1
+```
