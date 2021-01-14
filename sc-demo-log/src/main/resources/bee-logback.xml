@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+	<springProperty scope="context" name="log_dir" source="log_dir"/>
+	<!-- 定义日志文件 输入位置 -->
+
+	<!-- 日志最大的历史 10天 -->
+	<property name="maxHistory" value="30"/>
+	<property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{30} [%t] - %mdc - %msg%n"/>
+
+
+	<appender name="STDOUT" class="com.xn.demo.log.model.LogAd">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+			<pattern> %X{traceId},%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT"/>
+	</root>
+</configuration>

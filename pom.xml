@@ -18,6 +18,7 @@
         <module>sc-demo-activity</module>
         <module>sc-demo-netty</module>
         <module>sc-demo-ynk</module>
+        <module>sc-demo-log</module>
     </modules>
 
     <properties>
