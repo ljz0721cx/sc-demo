@@ -1,5 +1,6 @@
 package com.xn.demo.log.model;
 
+import com.xn.demo.log.lobdata.LoggerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -23,6 +24,7 @@ public class LogProducer implements Runnable {
             logger.error("哈哈哈哈哈哈error");
             try {
                 Thread.sleep(10000);
+                LoggerBuilder.logLogger().info("879797979");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

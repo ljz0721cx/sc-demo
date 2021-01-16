@@ -51,7 +51,6 @@ public class Log {
         return loggerName;
     }
 
-
     public void setLoggerName(String loggerName) {
         this.loggerName = loggerName;
     }
