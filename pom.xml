@@ -19,6 +19,7 @@
         <module>sc-demo-netty</module>
         <module>sc-demo-ynk</module>
         <module>sc-demo-log</module>
+        <module>sc-demo-gateway</module>
     </modules>
 
     <properties>

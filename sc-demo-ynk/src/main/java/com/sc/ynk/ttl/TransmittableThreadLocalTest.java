@@ -19,7 +19,7 @@ public class TransmittableThreadLocalTest {
     public static void main(String[] args) {
 
         //没有使用线程池的情况没有问题。
-        noUserThreadPool(10);
+        //noUserThreadPool(10);
 
         System.out.println("使用线程池的处理方式。");
         //使用线程池的时候就会出现问题
@@ -35,7 +35,18 @@ public class TransmittableThreadLocalTest {
             //线程池中线程会复用
            // executorService.submit(() -> assert1(var1, var2));
             //使用TransmittableThreadLocal 解决正常打印
-            executorService.execute(TtlRunnable.get(()->assert1(var1,var2)));
+            executorService.execute(TtlRunnable.get(new Runnable() {
+                @Override
+                public void run() {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println(ThreadContextHolder.get());
+                        }
+                    }).start();
+                    assert1(var1, var2);
+                }
+            }));
         }
     }
 
@@ -51,6 +62,7 @@ public class TransmittableThreadLocalTest {
 
 
     public static void assert1(Integer var1, Integer var2) {
+        System.out.println(ThreadContextHolder.get());
         System.out.println(ThreadContextHolder.get() * var2 == var1 * var2);
     }
 
