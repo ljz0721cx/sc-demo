@@ -15,6 +15,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 import net.bytebuddy.utility.JavaModule;
 
 import java.lang.instrument.Instrumentation;
+import java.util.Collection;
 import java.util.List;
 
 import static net.bytebuddy.matcher.ElementMatchers.nameContains;
@@ -28,7 +29,7 @@ public class SentinelAgent {
         //1、添加配置文件和参数解析
         SnifferConfigInitializer.initializeCoreConfig(agentArgs);
         //2、加载插件  TODO 根据配置加载插件
-        List<IPlugin> pluginGroup = PluginFactory.pluginGroup;
+        Collection<IPlugin> pluginGroup = PluginFactory.pluginGroup;
         //3、字节码插装  TODO看看是不是可以通过环绕加强
         AgentBuilder agentBuilder = new AgentBuilder.Default().ignore(
                 nameStartsWith("net.bytebuddy.")

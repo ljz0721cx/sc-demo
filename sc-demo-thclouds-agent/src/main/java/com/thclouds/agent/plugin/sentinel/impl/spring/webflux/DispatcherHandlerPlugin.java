@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.sentinel.impl.feign;
+package com.thclouds.agent.plugin.sentinel.impl.spring.webflux;
 
 import com.thclouds.agent.plugin.IPlugin;
 import com.thclouds.agent.plugin.InterceptPoint;
@@ -6,11 +6,14 @@ import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-public class FeignPlugin implements IPlugin {
+public class DispatcherHandlerPlugin implements IPlugin {
+
     @Override
     public String name() {
-        return "FeignPlugin";
+        return "DispatcherHandlerPlugin";
     }
 
     @Override
@@ -19,17 +22,14 @@ public class FeignPlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient")
-//                                .or(ElementMatchers.nameStartsWith("com.thclouds.commons.base.request.intercepter.FeignRequestInterceptor"))
-                                ;
+                        return ElementMatchers.nameStartsWith("org.springframework.web.reactive.DispatcherHandler");
                     }
 
                     @Override
                     public ElementMatcher<MethodDescription> buildMethodsMatcher() {
                         return ElementMatchers.isMethod()
                                 .and(ElementMatchers.any())
-                                .and(ElementMatchers.nameStartsWith("execute"))
-//                                .or(ElementMatchers.nameStartsWith("apply"))
+                                .and(ElementMatchers.named("handle"))
                                 ;
                     }
                 }
@@ -38,7 +38,7 @@ public class FeignPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return FeignAdice.class;
+        return DispatcherHandlerAdice.class;
     }
 
 }

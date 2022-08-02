@@ -12,7 +12,10 @@ import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.nacos.api.PropertyKeyConst;
+import com.thclouds.agent.SentinelAgent;
 import com.thclouds.agent.conf.Config;
+import com.thclouds.agent.logging.api.ILog;
+import com.thclouds.agent.logging.api.LogManager;
 
 
 import java.util.List;
@@ -23,9 +26,11 @@ import java.util.Properties;
  */
 public class NacosDatasourceInitFunc implements InitFunc {
 
+    public static ILog LOGGER = LogManager.getLogger(NacosDatasourceInitFunc.class);
+
     @Override
     public void init() {
-        System.out.println("NacosDatasourceInitFun init");
+        LOGGER.info("NacosDatasourceInitFun init");
         Properties properties = new Properties();
         properties.put(PropertyKeyConst.SERVER_ADDR, Config.Rule.REMOVE_ADDRESS);
         properties.put(PropertyKeyConst.NAMESPACE, Config.Rule.NAMESPACE_ID);

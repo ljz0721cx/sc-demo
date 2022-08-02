@@ -98,6 +98,12 @@
             <version>${spring-webmvc.version}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>${spring-webmvc.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>thclouds-agent</finalName>
@@ -170,7 +176,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete dir="${project.basedir}/thclouds-agent/thclouds-agent" />
+                                <delete dir="${project.basedir}/thclouds-agent" />
                             </target>
                         </configuration>
                     </execution>

@@ -20,5 +20,14 @@
 
 
 
+## 基于plugin的形式对外提供字节码插装，已经支持plugin
+
+1、拦截feign熔断限流                       pluginGroup.add(new FeignPlugin());
+2、拦截@conntroller注解的类熔断限流          pluginGroup.add(new ControllerPlugin());
+3、拦截WebFlux的DispatcherHandler熔断限流   pluginGroup.add(new DispatcherHandlerPlugin());
+4、解决地址冲突，异常提示返回                 pluginGroup.add(new HandlerResultPlugin());
+
+
+
   
 

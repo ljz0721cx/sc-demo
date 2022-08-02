@@ -37,7 +37,7 @@ import java.util.List;
 
 public class FeignAdice {
 
-    private static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
+    public static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {

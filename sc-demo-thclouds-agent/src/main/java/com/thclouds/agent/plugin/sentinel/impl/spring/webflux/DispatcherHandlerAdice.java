@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.sentinel.impl.spring.mvc;
+package com.thclouds.agent.plugin.sentinel.impl.spring.webflux;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
@@ -9,36 +9,30 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
-import com.thclouds.agent.SentinelAgent;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
+import feign.Request;
 import net.bytebuddy.asm.Advice;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 
+import javax.management.monitor.MonitorNotification;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-public class ControllerAdice {
+public class DispatcherHandlerAdice {
 
-    public static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
+    public static ILog LOGGER = LogManager.getLogger(DispatcherHandlerAdice.class);
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
-        String path = "";
         //获取到方法上的路径
-        String subPath = getSubPath(objInst, methodName);
-        RequestMapping basePathRequestMapping = AnnotationUtils.findAnnotation(objInst.getClass(), RequestMapping.class);
-        if (basePathRequestMapping != null) {
-            if (basePathRequestMapping.value().length > 0) {
-                path = basePathRequestMapping.value()[0] + "/" + subPath;
-            } else if (basePathRequestMapping.path().length > 0) {
-                path = basePathRequestMapping.path()[0] + "/" + subPath;
-            }
-        }
+        ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
+        String path = exchange.getRequest().getURI().getPath();
         LOGGER.info("resourceName:{}",path);
         Entry entry = null;
         try {
@@ -62,41 +56,7 @@ public class ControllerAdice {
         EntryContext.putEntryHolder(new EntryHolder(entry, null));
     }
 
-    /**
-     * 获取到注解上的路径
-     *
-     * @param objInst
-     * @param methodName
-     * @return
-     * @throws NoSuchMethodException
-     */
-    public static String getSubPath(Object objInst, String methodName) throws NoSuchMethodException {
-        String subPath = "";
-        Class<?> aClass = objInst.getClass();
-        Method method = aClass.getDeclaredMethod(methodName);
-        Annotation[] annotations = AnnotationUtils.getAnnotations(method);
-        for (Annotation annotation : annotations) {
-            if (annotation.annotationType() == RequestMapping.class) {
-                subPath = ((RequestMapping) annotation).value()[0];
-            }
-            if (annotation.annotationType() == GetMapping.class) {
-                subPath = ((GetMapping) annotation).value()[0];
-            }
-            if (annotation.annotationType() == PostMapping.class) {
-                subPath = ((PostMapping) annotation).value()[0];
-            }
-            if (annotation.annotationType() == PutMapping.class) {
-                subPath = ((PutMapping) annotation).value()[0];
-            }
-            if (annotation.annotationType() == DeleteMapping.class) {
-                subPath = ((DeleteMapping) annotation).value()[0];
-            }
-            if (annotation.annotationType() == PatchMapping.class) {
-                subPath = ((PatchMapping) annotation).value()[0];
-            }
-        }
-        return subPath;
-    }
+
 
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
@@ -105,8 +65,8 @@ public class ControllerAdice {
             Tracer.trace(e);
             LOGGER.error(e,"{} {} exit",className,methodName);
         }
-        EntryHolder entryHolder = EntryContext.getEntryHolder();
 
+        EntryHolder entryHolder = EntryContext.getEntryHolder();
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
             LOGGER.info("{} {} exit",className,methodName);

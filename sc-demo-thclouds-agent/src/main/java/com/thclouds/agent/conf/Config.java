@@ -75,17 +75,17 @@ public class Config {
 
     public static class Rule {
 
-        public static String REMOVE_ADDRESS = "nacos.test.qy566.com:80";
+        public static String REMOVE_ADDRESS = "127.0.0.1:8848";
         // nacos group
         public static String GROUP_ID = "DEFAULT_GROUP";
 
         public static String NAMESPACE_ID = "dev";
 
-        public static final String FLOW_DATA_ID = "flow.rule";
+        public static String FLOW_DATA_ID = "flow.rule";
 
-        public static final String DEGRADE_DATA_ID = "degrade.rule";
+        public static String DEGRADE_DATA_ID = "degrade.rule";
 
-        public static final String SYSTEM_DATA_ID = "system.rule";
+        public static String SYSTEM_DATA_ID = "system.rule";
 
     }
 
