@@ -23,7 +23,7 @@ import java.util.Properties;
 public class SnifferConfigInitializer {
 
     private static ILog LOGGER = LogManager.getLogger(SnifferConfigInitializer.class);
-    private static final String SPECIFIED_CONFIG_PATH = "skywalking_config";
+    private static final String SPECIFIED_CONFIG_PATH = "thclouds_config";
     private static final String DEFAULT_CONFIG_FILE_NAME = "/conf/agent.conf";
     private static final String ENV_KEY_PREFIX = "skywalking.";
     private static Properties AGENT_SETTINGS;
@@ -49,7 +49,7 @@ public class SnifferConfigInitializer {
             }
 
         } catch (Exception e) {
-            LOGGER.error(e, "Failed to read the config file, skywalking is going to run in default config.");
+            LOGGER.error(e, "Failed to read the config file, thclouds is going to run in default config.");
         }
 
         try {
@@ -162,9 +162,8 @@ public class SnifferConfigInitializer {
     }
 
     /**
-     * Load the specified config file or default config file
+     * 加载指定的配置文件或默认配置文件
      *
-     * @return the config file {@link InputStream}, or null if not needEnhance.
      */
     private static InputStreamReader loadConfig() throws AgentPackageNotFoundException, ConfigNotFoundException {
         String specifiedConfigPath = System.getProperty(SPECIFIED_CONFIG_PATH);

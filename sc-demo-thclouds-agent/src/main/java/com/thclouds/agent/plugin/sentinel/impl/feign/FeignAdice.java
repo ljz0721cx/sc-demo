@@ -23,6 +23,9 @@ import com.alibaba.csp.sentinel.util.TimeUtil;
 import com.alibaba.fastjson.JSON;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
+import com.thclouds.agent.logging.api.ILog;
+import com.thclouds.agent.logging.api.LogManager;
+import com.thclouds.agent.plugin.sentinel.impl.spring.mvc.ControllerAdice;
 import feign.Request;
 import net.bytebuddy.asm.Advice;
 
@@ -34,17 +37,15 @@ import java.util.List;
 
 public class FeignAdice {
 
+    private static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-//        initSystemRule();
-//        registerStateChangeObserver();
         System.out.println(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
 
         Request request = (Request) allArguments[0];
         Request.Options options = (Request.Options) allArguments[1];
         URI asUri = URI.create(request.url());
-//        String resourceName = asUri.getHost();
         String resourceName = methodName + ":" + asUri.getPath();
         System.out.println(Thread.currentThread().getId() + "  参数：" + request.body() + "   " + request.url() + "   " + asUri.getHost() + "    " + asUri.getPath());
 
@@ -57,18 +58,19 @@ public class FeignAdice {
 //            entry = SphU.entry("methodA", EntryType.IN);
             System.out.println(Thread.currentThread().getId() + "  enter");
         } catch (FlowException e) {
-            System.out.println(Thread.currentThread().getId() + "限流: " + e);
+            LOGGER.info("限流 {}",e);
             throw new RuntimeException("BlockException 系统限流了，请稍后再试!");
         } catch (DegradeException e) {
-            System.out.println(Thread.currentThread().getId() + "降级" + e.getRule());
-            throw new RuntimeException("BlockException 系统降级了，请稍后再试!");
+            LOGGER.info("降级 {}",e);
+            throw new RuntimeException("BlockException 接口降级了，请稍后再试!");
         } catch (SystemBlockException e) {
-            System.out.println(Thread.currentThread().getId() + "系统规则(负载/...不满足要求)" + e);
+            LOGGER.info("系统规则(负载/...不满足要求) {}",e);
             throw new RuntimeException("BlockException 系统规则(负载/...不满足要求)");
         } catch (AuthorityException e) {
-            System.out.println(Thread.currentThread().getId() + "授权规则不通过" + e);
+            LOGGER.info("授权规则不通过 {}",e);
             throw new RuntimeException("BlockException 授权规则不通过");
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            LOGGER.error("位置异常 {}",e);
             throw new RuntimeException("BlockException");
         }
         EntryContext.putEntryHolder(new EntryHolder(entry, null));
@@ -81,12 +83,13 @@ public class FeignAdice {
 
         if (e != null && !BlockException.isBlockException(e)) {
             Tracer.trace(e);
+            LOGGER.error(e,"{} {} exit",className,methodName);
         }
         EntryHolder entryHolder = EntryContext.getEntryHolder();
-        System.out.println(Thread.currentThread().getId() + " entryHolder：" + entryHolder);
+
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
-            System.out.println(Thread.currentThread().getId() + "  method exit");
+            LOGGER.info("{} {} exit",className,methodName);
         }
 
     }

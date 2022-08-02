@@ -34,9 +34,7 @@ public class ControllerPlugin implements IPlugin {
                                 .or(ElementMatchers.isAnnotatedWith(ElementMatchers.named("org.springframework.web.bind.annotation.PatchMapping")))
                                 .or(ElementMatchers.isAnnotatedWith(ElementMatchers.named("org.springframework.web.bind.annotation.RequestMapping")))
                                 ;
-
                     }
-
                 }
         };
     }

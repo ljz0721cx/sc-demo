@@ -27,12 +27,12 @@ public class NacosDatasourceInitFunc implements InitFunc {
     public void init() {
         System.out.println("NacosDatasourceInitFun init");
         Properties properties = new Properties();
-        properties.put(PropertyKeyConst.SERVER_ADDR, Config.FeignRule.REMOVE_ADDRESS);
-        properties.put(PropertyKeyConst.NAMESPACE, Config.FeignRule.NACOS_NAMESPACE_ID);
+        properties.put(PropertyKeyConst.SERVER_ADDR, Config.Rule.REMOVE_ADDRESS);
+        properties.put(PropertyKeyConst.NAMESPACE, Config.Rule.NAMESPACE_ID);
 
         //限流规则初始化
         try {
-            ReadableDataSource<String, List<FlowRule>> flowRuleDataSource = new NacosDataSource<>(properties, Config.FeignRule.GROUP_ID, Config.FeignRule.FLOW_DATA_ID,
+            ReadableDataSource<String, List<FlowRule>> flowRuleDataSource = new NacosDataSource<>(properties, Config.Rule.GROUP_ID, Config.Rule.FLOW_DATA_ID,
                     source -> JSON.parseObject(source, new TypeReference<List<FlowRule>>() {
                     }));
             FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
@@ -42,7 +42,7 @@ public class NacosDatasourceInitFunc implements InitFunc {
 
         //降级规则初始化
         try {
-            ReadableDataSource<String, List<DegradeRule>> degradeRuleDataSource = new NacosDataSource<>(properties, Config.FeignRule.GROUP_ID, Config.FeignRule.DEGRADE_DATA_ID,
+            ReadableDataSource<String, List<DegradeRule>> degradeRuleDataSource = new NacosDataSource<>(properties, Config.Rule.GROUP_ID, Config.Rule.DEGRADE_DATA_ID,
                     source -> JSON.parseObject(source, new TypeReference<List<DegradeRule>>() {
                     }));
             DegradeRuleManager.register2Property(degradeRuleDataSource.getProperty());
@@ -52,7 +52,7 @@ public class NacosDatasourceInitFunc implements InitFunc {
 
         //系统保护规则初始化
         try {
-            ReadableDataSource<String, List<SystemRule>> systemRuleDataSource = new NacosDataSource<>(properties, Config.FeignRule.GROUP_ID, Config.FeignRule.SYSTEM_DATA_ID,
+            ReadableDataSource<String, List<SystemRule>> systemRuleDataSource = new NacosDataSource<>(properties, Config.Rule.GROUP_ID, Config.Rule.SYSTEM_DATA_ID,
                     source -> JSON.parseObject(source, new TypeReference<List<SystemRule>>() {
                     }));
             SystemRuleManager.register2Property(systemRuleDataSource.getProperty());

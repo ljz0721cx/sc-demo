@@ -9,8 +9,11 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
+import com.thclouds.agent.SentinelAgent;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
+import com.thclouds.agent.logging.api.ILog;
+import com.thclouds.agent.logging.api.LogManager;
 import net.bytebuddy.asm.Advice;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +23,11 @@ import java.lang.reflect.Method;
 
 public class ControllerAdice {
 
+    private static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
+
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        System.out.println("  className：" + objInst.getClass() + " methodName: " + methodName);
+        LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         String path = "";
         //获取到方法上的路径
         String subPath = getSubPath(objInst, methodName);
@@ -34,24 +39,24 @@ public class ControllerAdice {
                 path = basePathRequestMapping.path()[0] + "/" + subPath;
             }
         }
-        System.out.println("basePath : " + path);
+        LOGGER.info("resourceName:{}",path);
         Entry entry = null;
         try {
             entry = SphU.entry(path, EntryType.IN);
-            System.out.println(Thread.currentThread().getId() + "  enter");
         } catch (FlowException e) {
-            System.out.println(Thread.currentThread().getId() + "限流: " + e);
+            LOGGER.info("限流 {}",e);
             throw new RuntimeException("BlockException 系统限流了，请稍后再试!");
         } catch (DegradeException e) {
-            System.out.println(Thread.currentThread().getId() + "降级" + e.getRule());
-            throw new RuntimeException("BlockException 系统降级了，请稍后再试!");
+            LOGGER.info("降级 {}",e);
+            throw new RuntimeException("BlockException 接口降级了，请稍后再试!");
         } catch (SystemBlockException e) {
-            System.out.println(Thread.currentThread().getId() + "系统规则(负载/...不满足要求)" + e);
+            LOGGER.info("系统规则(负载/...不满足要求) {}",e);
             throw new RuntimeException("BlockException 系统规则(负载/...不满足要求)");
         } catch (AuthorityException e) {
-            System.out.println(Thread.currentThread().getId() + "授权规则不通过" + e);
+            LOGGER.info("授权规则不通过 {}",e);
             throw new RuntimeException("BlockException 授权规则不通过");
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            LOGGER.error("位置异常 {}",e);
             throw new RuntimeException("BlockException");
         }
         EntryContext.putEntryHolder(new EntryHolder(entry, null));
@@ -69,7 +74,6 @@ public class ControllerAdice {
         String subPath = "";
         Class<?> aClass = objInst.getClass();
         Method method = aClass.getDeclaredMethod(methodName);
-        RequestMapping methodAnnotation = AnnotationUtils.findAnnotation(method, RequestMapping.class);
         Annotation[] annotations = AnnotationUtils.getAnnotations(method);
         for (Annotation annotation : annotations) {
             if (annotation.annotationType() == RequestMapping.class) {
@@ -99,12 +103,13 @@ public class ControllerAdice {
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
         if (e != null && !BlockException.isBlockException(e)) {
             Tracer.trace(e);
+            LOGGER.error(e,"{} {} exit",className,methodName);
         }
         EntryHolder entryHolder = EntryContext.getEntryHolder();
-        System.out.println(Thread.currentThread().getId() + " entryHolder：" + entryHolder);
+
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
-            System.out.println(Thread.currentThread().getId() + "  method exit");
+            LOGGER.info("{} {} exit",className,methodName);
         }
     }
 

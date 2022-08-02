@@ -25,7 +25,7 @@ public class SentinelAgent {
     //JVM 首先尝试在代理类上调用以下方法
     public static void premain(String agentArgs, Instrumentation inst) {
         LOGGER.info("============================agnent 开启========================== == ==\r\n");
-        //TODO 1、添加配置文件和参数解析
+        //1、添加配置文件和参数解析
         SnifferConfigInitializer.initializeCoreConfig(agentArgs);
         //2、加载插件  TODO 根据配置加载插件
         List<IPlugin> pluginGroup = PluginFactory.pluginGroup;
@@ -85,7 +85,7 @@ public class SentinelAgent {
 
         agentBuilder.with(listener).installOn(inst);
 
-        //启动监控服务
+        //启动监控服务TODO ，后续需要
         //停机回调
     }
 

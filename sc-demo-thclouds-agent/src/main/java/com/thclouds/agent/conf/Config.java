@@ -5,6 +5,9 @@ import com.thclouds.agent.logging.core.LogLevel;
 import com.thclouds.agent.logging.core.LogOutput;
 import com.thclouds.agent.logging.core.ResolverType;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @description 统一配置信息
  */
@@ -13,6 +16,11 @@ public class Config {
     public static class Agent {
 
         public static final String SERVICE_NAME = "demo";
+
+        /**
+         * 忽略的链路追踪的的后缀
+         */
+        public static String IGNORE_SUFFIX = ".jpg,.jpeg,.js,.css,.png,.bmp,.gif,.ico,.mp3,.mp4,.html,.svg";
     }
 
     public static class Logging {
@@ -60,19 +68,18 @@ public class Config {
          * 'yyyy-MM-dd HH:mm:ss:SSS' %class = SimpleName of TargetClass %msg = Message of user input %throwable =
          * Throwable of user input %agent_name = ServiceName of Agent {@link Agent#SERVICE_NAME}
          *
-         * @see PatternLogger#DEFAULT_CONVERTER_MAP
          */
         public static String PATTERN = "%level %timestamp %thread %class : %msg %throwable";
 
     }
 
-    public static class FeignRule {
+    public static class Rule {
 
         public static String REMOVE_ADDRESS = "nacos.test.qy566.com:80";
         // nacos group
         public static String GROUP_ID = "DEFAULT_GROUP";
 
-        public static String NACOS_NAMESPACE_ID = "dev";
+        public static String NAMESPACE_ID = "dev";
 
         public static final String FLOW_DATA_ID = "flow.rule";
 
@@ -80,6 +87,18 @@ public class Config {
 
         public static final String SYSTEM_DATA_ID = "system.rule";
 
+    }
+
+    public static class Plugin {
+        /**
+         * Control the length of the peer field.
+         */
+        public static int PEER_MAX_LENGTH = 200;
+
+        /**
+         * Exclude activated plugins
+         */
+        public static String EXCLUDE_PLUGINS = "";
 
     }
 }
