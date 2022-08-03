@@ -1,16 +1,20 @@
 package com.thclouds.agent;
 
 
+import com.thclouds.agent.conf.Config;
 import com.thclouds.agent.conf.SnifferConfigInitializer;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.plugin.IPlugin;
+import com.thclouds.agent.plugin.InstrumentDebuggingClass;
 import com.thclouds.agent.plugin.InterceptPoint;
 import com.thclouds.agent.plugin.PluginFactory;
+import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.dynamic.scaffold.TypeValidation;
 import net.bytebuddy.matcher.ElementMatchers;
 import net.bytebuddy.utility.JavaModule;
 
@@ -30,7 +34,8 @@ public class SentinelAgent {
         SnifferConfigInitializer.initializeCoreConfig(agentArgs);
         //2、加载插件  TODO 根据配置加载插件
         Collection<IPlugin> pluginGroup = PluginFactory.pluginGroup;
-        //3、字节码插装  TODO看看是不是可以通过环绕加强
+        //3、字节码插装  TODO 看看是不是可以通过环绕加强
+        final ByteBuddy byteBuddy = new ByteBuddy().with(TypeValidation.of(Config.Agent.IS_OPEN_DEBUGGING_CLASS));
         AgentBuilder agentBuilder = new AgentBuilder.Default().ignore(
                 nameStartsWith("net.bytebuddy.")
                         .or(nameStartsWith("org.slf4j."))
@@ -62,8 +67,10 @@ public class SentinelAgent {
 
             @Override
             public void onTransformation(TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule, boolean b, DynamicType dynamicType) {
-
-                LOGGER.info("onTransformation：" + typeDescription);
+                if (LOGGER.isDebugEnable()) {
+                    LOGGER.debug("On Transformation class {}.", typeDescription.getName());
+                }
+                InstrumentDebuggingClass.INSTANCE.log(dynamicType);
             }
 
             @Override

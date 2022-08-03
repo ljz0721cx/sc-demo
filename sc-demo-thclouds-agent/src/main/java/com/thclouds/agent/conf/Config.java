@@ -17,6 +17,8 @@ public class Config {
 
         public static final String SERVICE_NAME = "demo";
 
+        public static boolean IS_OPEN_DEBUGGING_CLASS = false;
+
         /**
          * 忽略的链路追踪的的后缀
          */
