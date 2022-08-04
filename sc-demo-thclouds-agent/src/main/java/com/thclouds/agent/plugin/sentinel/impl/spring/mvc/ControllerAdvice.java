@@ -9,7 +9,6 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
-import com.thclouds.agent.SentinelAgent;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
@@ -21,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-public class ControllerAdice {
+public class ControllerAdvice {
 
-    public static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
+    public static ILog LOGGER = LogManager.getLogger(ControllerAdvice.class);
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {

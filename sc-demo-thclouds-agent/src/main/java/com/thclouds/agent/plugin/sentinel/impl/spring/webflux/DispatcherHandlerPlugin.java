@@ -6,8 +6,6 @@ import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 public class DispatcherHandlerPlugin implements IPlugin {
 
@@ -38,7 +36,7 @@ public class DispatcherHandlerPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return DispatcherHandlerAdice.class;
+        return DispatcherHandlerAdvice.class;
     }
 
 }

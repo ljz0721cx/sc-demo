@@ -38,7 +38,7 @@ public class FeignPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return FeignAdice.class;
+        return FeignAdvice.class;
     }
 
 }

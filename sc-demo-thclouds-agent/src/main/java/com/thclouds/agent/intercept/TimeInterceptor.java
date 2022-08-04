@@ -19,11 +19,9 @@ import java.util.concurrent.Callable;
 public class TimeInterceptor {
 
     @RuntimeType
-    public static Object intercept(@This Object obj, @AllArguments Object[] allArguments, @Origin Method method,
-
-
-                                   @SuperCall Callable<?> callable) throws Exception {
-        initFlowRules();
+    public Object intercept(@This Object obj, @AllArguments Object[] allArguments, @SuperCall Callable<?> zuper,
+                            @Origin Method method) throws Throwable {
+//        initFlowRules();
         Request request = (Request) allArguments[0];
         Request.Options options = (Request.Options) allArguments[1];
         URI asUri = URI.create(request.url());
@@ -33,7 +31,7 @@ public class TimeInterceptor {
         try {
             // 被保护的逻辑
             entry = SphU.entry(resourceName);
-            call = callable.call();
+            call = zuper.call();
 
         } catch (BlockException ex) {
             // 处理被流控的逻辑

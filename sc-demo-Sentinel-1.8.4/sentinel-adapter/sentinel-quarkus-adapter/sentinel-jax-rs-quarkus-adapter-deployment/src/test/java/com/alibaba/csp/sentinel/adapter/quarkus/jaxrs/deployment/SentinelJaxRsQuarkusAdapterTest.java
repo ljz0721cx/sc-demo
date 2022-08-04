@@ -35,11 +35,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.MediaType;
+
 import java.util.Collections;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
+
 import java.util.concurrent.FutureTask;
 
 import static io.restassured.RestAssured.given;

@@ -20,12 +20,11 @@ import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
 import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
 import com.alibaba.csp.sentinel.util.TimeUtil;
-import com.alibaba.fastjson.JSON;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
-import com.thclouds.agent.plugin.sentinel.impl.spring.mvc.ControllerAdice;
+import com.thclouds.agent.plugin.sentinel.impl.spring.mvc.ControllerAdvice;
 import feign.Request;
 import net.bytebuddy.asm.Advice;
 
@@ -35,9 +34,9 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class FeignAdice {
+public class FeignAdvice {
 
-    public static ILog LOGGER = LogManager.getLogger(ControllerAdice.class);
+    public static ILog LOGGER = LogManager.getLogger(ControllerAdvice.class);
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {

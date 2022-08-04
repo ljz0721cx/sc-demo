@@ -36,7 +36,7 @@ public class HandlerResultPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return HandlerResultAdice.class;
+        return HandlerResultAdvice.class;
     }
 
 }

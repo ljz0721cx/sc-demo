@@ -41,7 +41,7 @@ public class ControllerPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return ControllerAdice.class;
+        return ControllerAdvice.class;
     }
 
 }
