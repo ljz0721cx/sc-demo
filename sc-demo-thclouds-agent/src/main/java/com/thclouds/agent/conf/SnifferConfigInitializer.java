@@ -25,7 +25,7 @@ public class SnifferConfigInitializer {
     private static ILog LOGGER = LogManager.getLogger(SnifferConfigInitializer.class);
     private static final String SPECIFIED_CONFIG_PATH = "thclouds_config";
     private static final String DEFAULT_CONFIG_FILE_NAME = "/conf/agent.conf";
-    private static final String ENV_KEY_PREFIX = "skywalking.";
+    private static final String ENV_KEY_PREFIX = "thclouds.";
     private static Properties AGENT_SETTINGS;
     private static boolean IS_INIT_COMPLETED = false;
 
@@ -145,12 +145,12 @@ public class SnifferConfigInitializer {
     }
 
     /**
-     * Override the config by system properties. The property key must start with `skywalking`, the result should be as
-     * same as in `agent.config`
+     * Override the config by system properties. The property key must start with `thclouds`, the result should be as
+     * same as in `agent.conf`
      * <p>
-     * such as: Property key of `agent.service_name` should be `skywalking.agent.service_name`
+     * such as: Property key of `agent.service_name` should be `thclouds.agent.service_name`
      */
-    private static void overrideConfigBySystemProp() throws IllegalAccessException {
+    private static void overrideConfigBySystemProp(){
         Properties systemProperties = System.getProperties();
         for (final Map.Entry<Object, Object> prop : systemProperties.entrySet()) {
             String key = prop.getKey().toString();

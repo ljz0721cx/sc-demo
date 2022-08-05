@@ -1,6 +1,5 @@
 package com.thclouds.agent.plugin.jdk.threading;
 
-import com.thclouds.agent.context.ContextCarrier;
 import com.thclouds.agent.context.ServerWebExchangeContext;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;

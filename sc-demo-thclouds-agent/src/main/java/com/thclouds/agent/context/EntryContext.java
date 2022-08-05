@@ -1,8 +1,10 @@
 package com.thclouds.agent.context;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
+
 public final class EntryContext {
 
-    private static final ThreadLocal<EntryHolder> holderThreadLocal = new ThreadLocal<EntryHolder>();
+    private static final TransmittableThreadLocal<EntryHolder> holderThreadLocal = new TransmittableThreadLocal<EntryHolder>();
 
     public static EntryHolder getEntryHolder() {
         EntryHolder entryHolder = holderThreadLocal.get();

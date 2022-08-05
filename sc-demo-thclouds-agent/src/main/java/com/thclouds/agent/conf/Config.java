@@ -4,7 +4,6 @@ package com.thclouds.agent.conf;
 import com.thclouds.agent.logging.core.LogLevel;
 import com.thclouds.agent.logging.core.LogOutput;
 import com.thclouds.agent.logging.core.ResolverType;
-import com.thclouds.agent.plugin.bytebuddy.ClassCacheMode;
 
 /**
  * @description 统一配置信息
@@ -18,7 +17,6 @@ public class Config {
 
         public static boolean IS_OPEN_DEBUGGING_CLASS = false;
 
-        public static ClassCacheMode CLASS_CACHE_MODE = ClassCacheMode.MEMORY;
         /**
          * 忽略的链路追踪的的后缀
          */

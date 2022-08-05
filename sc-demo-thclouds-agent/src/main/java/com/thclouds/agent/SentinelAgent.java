@@ -1,10 +1,8 @@
 package com.thclouds.agent;
 
 
-import com.thclouds.agent.boot.AgentPackageNotFoundException;
 import com.thclouds.agent.conf.Config;
 import com.thclouds.agent.conf.SnifferConfigInitializer;
-import com.thclouds.agent.context.EnhanceContext;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.plugin.*;
@@ -33,15 +31,6 @@ public class SentinelAgent {
         SnifferConfigInitializer.initializeCoreConfig(agentArgs);
         //2、加载插件
         Collection<IPlugin> pluginGroup = PluginFactory.pluginGroup;
-
-        //发现enhancePlugin
-        final PluginFinder pluginFinder;
-        try {
-            pluginFinder = new PluginFinder(PluginBootstrap.loadPlugins());
-        } catch (Exception e) {
-            LOGGER.error(e, "thclouds agent initialized failure. Shutting down.");
-            return;
-        }
 
         //3、字节码插装
         final ByteBuddy byteBuddy = new ByteBuddy().with(TypeValidation.of(Config.Agent.IS_OPEN_DEBUGGING_CLASS));
@@ -76,8 +65,6 @@ public class SentinelAgent {
 
         //环绕增强
         agentBuilder
-//                .type(pluginFinder.buildMatch())
-//                .transform(new Transformer(pluginFinder))
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 .with(new RedefinitionListener())
                 .with(new Listener())
@@ -85,40 +72,6 @@ public class SentinelAgent {
 
     }
 
-    private static class Transformer implements AgentBuilder.Transformer {
-        private PluginFinder pluginFinder;
-
-        Transformer(PluginFinder pluginFinder) {
-            this.pluginFinder = pluginFinder;
-        }
-
-        @Override
-        public DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder,
-                                                final TypeDescription typeDescription,
-                                                final ClassLoader classLoader,
-                                                final JavaModule module) {
-            List<AbstractClassEnhancePluginDefine> pluginDefines = pluginFinder.find(typeDescription);
-            if (pluginDefines.size() > 0) {
-                DynamicType.Builder<?> newBuilder = builder;
-                EnhanceContext context = new EnhanceContext();
-                for (AbstractClassEnhancePluginDefine define : pluginDefines) {
-                    DynamicType.Builder<?> possibleNewBuilder = define.define(
-                            typeDescription, newBuilder, classLoader, context);
-                    if (possibleNewBuilder != null) {
-                        newBuilder = possibleNewBuilder;
-                    }
-                }
-                if (context.isEnhanced()) {
-                    LOGGER.debug("Finish the prepare stage for {}.", typeDescription.getName());
-                }
-
-                return newBuilder;
-            }
-
-            LOGGER.debug("Matched class {}, but ignore by finding mechanism.", typeDescription.getTypeName());
-            return builder;
-        }
-    }
 
     private static class Listener implements AgentBuilder.Listener {
         @Override
