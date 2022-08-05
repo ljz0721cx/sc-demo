@@ -4,9 +4,7 @@ package com.thclouds.agent.conf;
 import com.thclouds.agent.logging.core.LogLevel;
 import com.thclouds.agent.logging.core.LogOutput;
 import com.thclouds.agent.logging.core.ResolverType;
-
-import java.util.Arrays;
-import java.util.List;
+import com.thclouds.agent.plugin.bytebuddy.ClassCacheMode;
 
 /**
  * @description 统一配置信息
@@ -15,10 +13,12 @@ public class Config {
 
     public static class Agent {
 
-        public static final String SERVICE_NAME = "demo";
+        public static String SERVICE_NAME = "demo";
+        public static boolean IS_CACHE_ENHANCED_CLASS = false;
 
-        public static boolean IS_OPEN_DEBUGGING_CLASS = false;
+        public static boolean IS_OPEN_DEBUGGING_CLASS = true;
 
+        public static ClassCacheMode CLASS_CACHE_MODE = ClassCacheMode.MEMORY;
         /**
          * 忽略的链路追踪的的后缀
          */

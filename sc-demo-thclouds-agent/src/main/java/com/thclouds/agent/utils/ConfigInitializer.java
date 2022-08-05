@@ -18,6 +18,9 @@
 
 package com.thclouds.agent.utils;
 
+import com.thclouds.agent.utils.Length;
+import com.thclouds.agent.utils.StringUtil;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;

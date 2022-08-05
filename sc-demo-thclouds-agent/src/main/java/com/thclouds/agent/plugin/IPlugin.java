@@ -9,4 +9,6 @@ public interface IPlugin {
 
     //拦截器类
     Class adviceClass();
+
+
 }
