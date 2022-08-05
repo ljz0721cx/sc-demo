@@ -25,6 +25,7 @@ import static net.bytebuddy.matcher.ElementMatchers.isInterface;
 
 public class SentinelAgent {
     private static ILog LOGGER = LogManager.getLogger(SentinelAgent.class);
+
     //JVM 首先尝试在代理类上调用以下方法
     public static void premain(String agentArgs, Instrumentation inst) {
         LOGGER.info("============================agnent 开启========================== == ==\r\n");
@@ -33,12 +34,10 @@ public class SentinelAgent {
         //2、加载插件  TODO 根据配置加载插件
         Collection<IPlugin> pluginGroup = PluginFactory.pluginGroup;
 
+        //发现enhancePlugin
         final PluginFinder pluginFinder;
         try {
-            pluginFinder = new PluginFinder(new PluginBootstrap().loadPlugins());
-        } catch (AgentPackageNotFoundException ape) {
-            LOGGER.error(ape, "Locate agent.jar failure. Shutting down.");
-            return;
+            pluginFinder = new PluginFinder(PluginBootstrap.loadPlugins());
         } catch (Exception e) {
             LOGGER.error(e, "SkyWalking agent initialized failure. Shutting down.");
             return;
@@ -46,6 +45,7 @@ public class SentinelAgent {
 
         //3、字节码插装
         final ByteBuddy byteBuddy = new ByteBuddy().with(TypeValidation.of(Config.Agent.IS_OPEN_DEBUGGING_CLASS));
+        //加强上下文
         AgentBuilder agentBuilder = new AgentBuilder.Default(byteBuddy).ignore(
                 nameStartsWith("net.bytebuddy.")
                         .or(nameStartsWith("org.slf4j."))
@@ -53,16 +53,22 @@ public class SentinelAgent {
                         .or(nameContains("javassist"))
                         .or(nameContains(".asm."))
                         .or(nameContains(".reflectasm."))
+                        .or(nameStartsWith("java.lang.ref"))
                         .or(nameStartsWith("sun.reflect"))
+                        .or(nameStartsWith("com.intellij"))
                         .or(ElementMatchers.isSynthetic()));
 
         for (IPlugin plugin : pluginGroup) {
             InterceptPoint[] interceptPoints = plugin.buildInterceptPoint();
             for (InterceptPoint point : interceptPoints) {
-                AgentBuilder.Transformer transformer = (builder, typeDescription, classLoader, javaModule) -> {
+                AgentBuilder.Transformer transformer = new AgentBuilder.Transformer() {
+                    @Override
+                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule javaModule) {
                         builder = builder.visit(Advice.to(plugin.adviceClass()).on(point.buildMethodsMatcher()));
                         return builder;
-                    };
+                    }
+                };
+                //组建转化为执行的上下文
                 agentBuilder = agentBuilder.type(point.buildTypesMatcher()).transform(transformer);
             }
         }
@@ -171,7 +177,6 @@ public class SentinelAgent {
             /* do nothing */
         }
     }
-
 
 
 }

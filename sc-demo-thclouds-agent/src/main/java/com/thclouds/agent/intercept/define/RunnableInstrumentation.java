@@ -53,40 +53,40 @@ public class RunnableInstrumentation extends ClassEnhancePluginDefine {
 
     @Override
     public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[] {
-            new ConstructorInterceptPoint() {
-                @Override
-                public ElementMatcher<MethodDescription> getConstructorMatcher() {
-                    return any();
-                }
+        return new ConstructorInterceptPoint[]{
+                new ConstructorInterceptPoint() {
+                    @Override
+                    public ElementMatcher<MethodDescription> getConstructorMatcher() {
+                        return any();
+                    }
 
-                @Override
-                public String getConstructorInterceptor() {
-                    return RUNNABLE_CLASS_INTERCEPTOR;
+                    @Override
+                    public String getConstructorInterceptor() {
+                        return RUNNABLE_CLASS_INTERCEPTOR;
+                    }
                 }
-            }
         };
     }
 
     @Override
     public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[] {
-            new InstanceMethodsInterceptPoint() {
-                @Override
-                public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                    return named(RUNNABLE_RUN_METHOD).and(takesArguments(0));
-                }
+        return new InstanceMethodsInterceptPoint[]{
+                new InstanceMethodsInterceptPoint() {
+                    @Override
+                    public ElementMatcher<MethodDescription> getMethodsMatcher() {
+                        return named(RUNNABLE_RUN_METHOD).and(takesArguments(0));
+                    }
 
-                @Override
-                public String getMethodsInterceptor() {
-                    return RUNNABLE_RUN_METHOD_INTERCEPTOR;
-                }
+                    @Override
+                    public String getMethodsInterceptor() {
+                        return RUNNABLE_RUN_METHOD_INTERCEPTOR;
+                    }
 
-                @Override
-                public boolean isOverrideArgs() {
-                    return false;
+                    @Override
+                    public boolean isOverrideArgs() {
+                        return false;
+                    }
                 }
-            }
         };
     }
 

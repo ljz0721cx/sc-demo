@@ -24,7 +24,7 @@ public class ThreadingConstructorPlugin implements IPlugin {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
                         return   ElementMatchers.hasGenericSuperType
-                                (ElementMatchers.named("java.util.concurrent.Callable")).and(ElementMatchers.nameStartsWith("com.thclouds"));
+                                (ElementMatchers.named("java.util.concurrent.Callable")).and(ElementMatchers.nameStartsWith("com.etms"));
                     }
 
                     @Override
@@ -36,7 +36,7 @@ public class ThreadingConstructorPlugin implements IPlugin {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
 
-                        return   ElementMatchers.hasGenericSuperType(ElementMatchers.named("java.lang.Runnable")).and(ElementMatchers.nameStartsWith("com.thclouds"));
+                        return   ElementMatchers.hasGenericSuperType(ElementMatchers.named("java.lang.Runnable")).and(ElementMatchers.nameStartsWith("com.etms"));
                     }
 
                     @Override

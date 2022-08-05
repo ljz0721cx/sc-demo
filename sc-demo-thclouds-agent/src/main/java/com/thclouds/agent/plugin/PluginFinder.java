@@ -62,12 +62,12 @@ public class PluginFinder {
                 LinkedList<AbstractClassEnhancePluginDefine> pluginDefines = nameMatchDefine.get(nameMatch.getClassName());
                 if (pluginDefines == null) {
                     pluginDefines = new LinkedList<AbstractClassEnhancePluginDefine>();
-                    LOGGER.info("nameMatch {} {}",nameMatch.getClassName(),plugin.getClass());
+                    LOGGER.info("nameMatch {} {}", nameMatch.getClassName(), plugin.getClass());
                     nameMatchDefine.put(nameMatch.getClassName(), pluginDefines);
                 }
                 pluginDefines.add(plugin);
             } else {
-                LOGGER.info("plugin {}",plugin.getClass());
+                LOGGER.info("plugin {}", plugin.getClass());
                 signatureMatchDefine.add(plugin);
             }
         }
@@ -81,6 +81,7 @@ public class PluginFinder {
         }
 
         for (AbstractClassEnhancePluginDefine pluginDefine : signatureMatchDefine) {
+            System.out.println("--------------" + typeDescription.getTypeName());
             IndirectMatch match = (IndirectMatch) pluginDefine.enhanceClass();
             if (match.isMatch(typeDescription)) {
                 matchedPlugins.add(pluginDefine);
@@ -91,14 +92,8 @@ public class PluginFinder {
     }
 
     public ElementMatcher<? super TypeDescription> buildMatch() {
-//        ElementMatcher.Junction judge = new AbstractJunction<NamedElement>() {
-//            @Override
-//            public boolean matches(NamedElement target) {
-//                return nameMatchDefine.containsKey(target.getActualName());
-//            }
-//        };
-      return   ElementMatchers.nameStartsWith("com.thclouds.company").or(hasSuperType(named("java.lang.Runnable")).and(not(isInterface())))
-                .or( ElementMatchers.nameStartsWith("com.thclouds.company").or(hasSuperType(named("java.util.concurrent.Callable")).and(not(isInterface()))));
+        return ElementMatchers.nameStartsWith("com.etms").or(hasSuperType(named("java.lang.Runnable")).and(not(isInterface())))
+                .or(ElementMatchers.nameStartsWith("com.etms").or(hasSuperType(named("java.util.concurrent.Callable")).and(not(isInterface()))));
 
     }
 }
