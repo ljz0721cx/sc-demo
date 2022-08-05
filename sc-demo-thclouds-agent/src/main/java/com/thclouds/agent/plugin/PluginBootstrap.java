@@ -51,9 +51,9 @@ public class PluginBootstrap {
         List<AbstractClassEnhancePluginDefine> plugins = new ArrayList<AbstractClassEnhancePluginDefine>();
         try {
 //            LOGGER.debug("loading plugin class {}.", pluginDefine.getDefineClass());
-            AbstractClassEnhancePluginDefine plugin = (AbstractClassEnhancePluginDefine) Class.forName("com.thclouds.agent.intercept.define.CallableInstrumentation").newInstance();
+            AbstractClassEnhancePluginDefine plugin = (AbstractClassEnhancePluginDefine) Class.forName("com.thclouds.agent.intercept.threading.define.CallableInstrumentation").newInstance();
             plugins.add(plugin);
-            AbstractClassEnhancePluginDefine plugin2 = (AbstractClassEnhancePluginDefine) Class.forName("com.thclouds.agent.intercept.define.RunnableInstrumentation").newInstance();
+            AbstractClassEnhancePluginDefine plugin2 = (AbstractClassEnhancePluginDefine) Class.forName("com.thclouds.agent.intercept.threading.define.RunnableInstrumentation").newInstance();
             plugins.add(plugin2);
             System.out.println("加载增强插件的定义" + plugins.size());
         } catch (Throwable t) {

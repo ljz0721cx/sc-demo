@@ -24,7 +24,6 @@ import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.plugin.AbstractClassEnhancePluginDefine;
 import com.thclouds.agent.plugin.PluginException;
 import com.thclouds.agent.plugin.interceptor.*;
-import com.thclouds.agent.plugin.jdk.threading.EnhancedInstance;
 import com.thclouds.agent.utils.StringUtil;
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;

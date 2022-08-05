@@ -16,7 +16,7 @@
  *
  */
 
-package com.thclouds.agent.intercept;
+package com.thclouds.agent.intercept.threading.define;
 
 
 public class JDKThreadingPluginConfig {
@@ -27,7 +27,7 @@ public class JDKThreadingPluginConfig {
              * subclasses, including anonymous inner classes) whose name matches any one of the {@code
              * THREADING_CLASS_PREFIXES} (splitted by ,) will be instrumented
              */
-            public static String THREADING_CLASS_PREFIXES = "com.etms";
+            public static String THREADING_CLASS_PREFIXES = "com.thclouds";
         }
     }
 }

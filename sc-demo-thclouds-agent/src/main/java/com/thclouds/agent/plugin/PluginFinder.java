@@ -92,8 +92,22 @@ public class PluginFinder {
     }
 
     public ElementMatcher<? super TypeDescription> buildMatch() {
-        return ElementMatchers.nameStartsWith("com.etms").or(hasSuperType(named("java.lang.Runnable")).and(not(isInterface())))
-                .or(ElementMatchers.nameStartsWith("com.etms").or(hasSuperType(named("java.util.concurrent.Callable")).and(not(isInterface()))));
+//        ElementMatcher.Junction judge = new AbstractJunction<NamedElement>() {
+//            @Override
+//            public boolean matches(NamedElement target) {
+//                return nameMatchDefine.containsKey(target.getActualName());
+//            }
+//        };
+//        judge = judge.and(not(isInterface()));
+//        for (AbstractClassEnhancePluginDefine define : signatureMatchDefine) {
+//            ClassMatch match = define.enhanceClass();
+//            if (match instanceof IndirectMatch) {
+//                judge = judge.or(((IndirectMatch) match).buildJunction());
+//            }
+//        }
+//        return new ProtectiveShieldMatcher(judge);
+        return ElementMatchers.nameStartsWith("com.thclouds").or(hasSuperType(named("java.lang.Runnable")).and(not(isInterface())))
+                .or(ElementMatchers.nameStartsWith("com.thclouds").or(hasSuperType(named("java.util.concurrent.Callable")).and(not(isInterface()))));
 
     }
 }

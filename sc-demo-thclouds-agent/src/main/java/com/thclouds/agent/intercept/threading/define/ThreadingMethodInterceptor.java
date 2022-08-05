@@ -16,15 +16,14 @@
  *
  */
 
-package com.thclouds.agent.intercept;
+package com.thclouds.agent.intercept.threading.define;
 
-import com.thclouds.agent.SentinelAgent;
-import com.thclouds.agent.context.ContextCarrier;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
+import com.thclouds.agent.plugin.interceptor.enhance.EnhancedInstance;
 import com.thclouds.agent.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import com.thclouds.agent.plugin.interceptor.enhance.MethodInterceptResult;
-import com.thclouds.agent.plugin.jdk.threading.EnhancedInstance;
+
 
 
 import java.lang.reflect.Method;
@@ -35,8 +34,6 @@ public class ThreadingMethodInterceptor implements InstanceMethodsAroundIntercep
     public void beforeMethod(final EnhancedInstance objInst, final Method method, final Object[] allArguments,
                              final Class<?>[] argumentsTypes, final MethodInterceptResult result) {
 
-        ContextCarrier carrier=(ContextCarrier)objInst.getSkyWalkingDynamicField();
-        LOGGER.info("aaa",carrier);
     }
 
     @Override

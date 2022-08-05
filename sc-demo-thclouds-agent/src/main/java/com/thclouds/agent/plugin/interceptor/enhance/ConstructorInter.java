@@ -22,7 +22,6 @@ import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.plugin.PluginException;
 import com.thclouds.agent.plugin.interceptor.loader.InterceptorInstanceLoader;
-import com.thclouds.agent.plugin.jdk.threading.EnhancedInstance;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.This;

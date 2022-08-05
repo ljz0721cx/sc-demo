@@ -16,13 +16,13 @@
  *
  */
 
-package com.thclouds.agent.intercept;
+package com.thclouds.agent.intercept.threading.define;
 
 import com.thclouds.agent.context.ContextCarrier;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.plugin.interceptor.enhance.InstanceConstructorInterceptor;
-import com.thclouds.agent.plugin.jdk.threading.EnhancedInstance;
+import com.thclouds.agent.plugin.interceptor.enhance.EnhancedInstance;
 
 /**
  * @author lixh

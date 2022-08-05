@@ -18,8 +18,6 @@
 
 package com.thclouds.agent.plugin.interceptor.enhance;
 
-import com.thclouds.agent.plugin.jdk.threading.EnhancedInstance;
-
 import java.lang.reflect.Method;
 
 

@@ -18,8 +18,6 @@
 
 package com.thclouds.agent.plugin.interceptor.enhance;
 
-import com.thclouds.agent.plugin.jdk.threading.EnhancedInstance;
-
 /**
  * The instance constructor's interceptor interface. Any plugin, which wants to intercept constructor, must implement
  * this interface.

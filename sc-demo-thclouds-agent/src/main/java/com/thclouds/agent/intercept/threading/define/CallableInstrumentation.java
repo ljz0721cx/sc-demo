@@ -16,7 +16,7 @@
  *
  */
 
-package com.thclouds.agent.intercept.define;
+package com.thclouds.agent.intercept.threading.define;
 
 import com.thclouds.agent.intercept.ThreadingConfig;
 import com.thclouds.agent.plugin.interceptor.ConstructorInterceptPoint;
@@ -53,19 +53,7 @@ public class CallableInstrumentation extends ClassEnhancePluginDefine {
 
     @Override
     public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[] {
-            new ConstructorInterceptPoint() {
-                @Override
-                public ElementMatcher<MethodDescription> getConstructorMatcher() {
-                    return any();
-                }
-
-                @Override
-                public String getConstructorInterceptor() {
-                    return CALLABLE_CLASS_INTERCEPTOR;
-                }
-            }
-        };
+        return new ConstructorInterceptPoint[0] ;
     }
 
     @Override

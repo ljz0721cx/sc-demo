@@ -16,7 +16,7 @@ public class Config {
         public static String SERVICE_NAME = "demo";
         public static boolean IS_CACHE_ENHANCED_CLASS = false;
 
-        public static boolean IS_OPEN_DEBUGGING_CLASS = true;
+        public static boolean IS_OPEN_DEBUGGING_CLASS = false;
 
         public static ClassCacheMode CLASS_CACHE_MODE = ClassCacheMode.MEMORY;
         /**

@@ -31,7 +31,7 @@ public class SentinelAgent {
         LOGGER.info("============================agnent 开启========================== == ==\r\n");
         //1、添加配置文件和参数解析
         SnifferConfigInitializer.initializeCoreConfig(agentArgs);
-        //2、加载插件  TODO 根据配置加载插件
+        //2、加载插件
         Collection<IPlugin> pluginGroup = PluginFactory.pluginGroup;
 
         //发现enhancePlugin
@@ -39,7 +39,7 @@ public class SentinelAgent {
         try {
             pluginFinder = new PluginFinder(PluginBootstrap.loadPlugins());
         } catch (Exception e) {
-            LOGGER.error(e, "SkyWalking agent initialized failure. Shutting down.");
+            LOGGER.error(e, "thclouds agent initialized failure. Shutting down.");
             return;
         }
 
@@ -56,6 +56,7 @@ public class SentinelAgent {
                         .or(nameStartsWith("java.lang.ref"))
                         .or(nameStartsWith("sun.reflect"))
                         .or(nameStartsWith("com.intellij"))
+                        .or(nameStartsWith("com.thclouds.agent"))
                         .or(ElementMatchers.isSynthetic()));
 
         for (IPlugin plugin : pluginGroup) {
@@ -74,8 +75,9 @@ public class SentinelAgent {
         }
 
         //环绕增强
-        agentBuilder.type(pluginFinder.buildMatch())
-                .transform(new Transformer(pluginFinder))
+        agentBuilder
+//                .type(pluginFinder.buildMatch())
+//                .transform(new Transformer(pluginFinder))
                 .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
                 .with(new RedefinitionListener())
                 .with(new Listener())
@@ -151,7 +153,7 @@ public class SentinelAgent {
                             final JavaModule module,
                             final boolean loaded,
                             final Throwable throwable) {
-            LOGGER.error("Enhance class " + typeName + " error.", throwable);
+            LOGGER.error("Enhance class " + typeName + " error." + module.getActualName(), throwable);
         }
 
         @Override

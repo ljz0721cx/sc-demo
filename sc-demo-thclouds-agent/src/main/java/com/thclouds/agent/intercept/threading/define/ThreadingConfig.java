@@ -16,7 +16,7 @@
  *
  */
 
-package com.thclouds.agent.intercept;
+package com.thclouds.agent.intercept.threading.define;
 
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;

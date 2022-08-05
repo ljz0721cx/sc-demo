@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.jdk.threading;
+package com.thclouds.agent.plugin.interceptor.enhance;
 
 public interface EnhancedInstance {
     Object getSkyWalkingDynamicField();
