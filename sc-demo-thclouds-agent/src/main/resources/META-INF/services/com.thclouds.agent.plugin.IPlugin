@@ -1,12 +1,12 @@
-com.thclouds.agent.plugin.sentinel.spring.mvc.ControllerPlugin
-com.thclouds.agent.plugin.sentinel.spring.webflux.DispatcherHandlerPlugin
-com.thclouds.agent.plugin.sentinel.feign.FeignPlugin
-com.thclouds.agent.plugin.sentinel.spring.mvc.DispatcherServletPlugin
+com.thclouds.agent.plugin.sentinel.spring.mvc.ControllerSentinelPlugin
+com.thclouds.agent.plugin.sentinel.spring.webflux.DispatcherHandlerSentinelPlugin
+com.thclouds.agent.plugin.sentinel.feign.LoadBalancerFeignClientPlugin
+com.thclouds.agent.plugin.sentinel.spring.mvc.DispatcherServletSentienlPlugin
 
 com.thclouds.agent.plugin.mapping.conflicts.HandlerResultPlugin
 
 
-com.thclouds.agent.plugin.trace.feign.FeignClientPlugin
-com.thclouds.agent.plugin.trace.spring.mvc.DispatcherServletPlugin
-com.thclouds.agent.plugin.trace.spring.webflux.DispatcherHandlerPlugin
+com.thclouds.agent.plugin.trace.feign.FeignClientTracePlugin
+com.thclouds.agent.plugin.trace.spring.mvc.DispatcherServletTracePlugin
+com.thclouds.agent.plugin.trace.spring.webflux.DispatcherHandlerTracePlugin
 

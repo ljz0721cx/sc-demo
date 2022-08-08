@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.trace.spring.webflux;
+package com.thclouds.agent.plugin.sentinel.spring.webflux;
 
 import com.thclouds.agent.plugin.IPlugin;
 import com.thclouds.agent.plugin.InterceptPoint;
@@ -7,11 +7,11 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class DispatcherHandlerPlugin implements IPlugin {
+public class DispatcherHandlerSentinelPlugin implements IPlugin {
 
     @Override
     public String name() {
-        return "traceDispatcherHandlerPlugin";
+        return "sentinelDispatcherHandlerPlugin";
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DispatcherHandlerPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return DispatcherHandlerAdvice.class;
+        return DispatcherHandlerSentinelAdvice.class;
     }
 
 }

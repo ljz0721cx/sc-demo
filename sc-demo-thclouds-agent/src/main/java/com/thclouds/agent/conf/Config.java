@@ -13,7 +13,6 @@ public class Config {
     public static class Agent {
 
         public static String SERVICE_NAME = "demo";
-        public static boolean IS_CACHE_ENHANCED_CLASS = false;
 
         public static boolean IS_OPEN_DEBUGGING_CLASS = false;
 

@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.trace.spring.mvc;
+package com.thclouds.agent.plugin.sentinel.feign;
 
 import com.thclouds.agent.plugin.IPlugin;
 import com.thclouds.agent.plugin.InterceptPoint;
@@ -7,11 +7,10 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class DispatcherServletPlugin implements IPlugin {
-
+public class LoadBalancerFeignClientPlugin implements IPlugin {
     @Override
     public String name() {
-        return "traceDispatcherServletPlugin";
+        return "sentinelFeignPlugin";
     }
 
     @Override
@@ -20,14 +19,17 @@ public class DispatcherServletPlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("org.springframework.web.servlet.DispatcherServlet");
+                        return ElementMatchers.nameStartsWith("org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient")
+//                                .or(ElementMatchers.nameStartsWith("com.thclouds.commons.base.request.intercepter.FeignRequestInterceptor"))
+                                ;
                     }
 
                     @Override
                     public ElementMatcher<MethodDescription> buildMethodsMatcher() {
                         return ElementMatchers.isMethod()
                                 .and(ElementMatchers.any())
-                                .and(ElementMatchers.named("doService"))
+                                .and(ElementMatchers.nameStartsWith("execute"))
+//                                .or(ElementMatchers.nameStartsWith("apply"))
                                 ;
                     }
                 }
@@ -36,7 +38,7 @@ public class DispatcherServletPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return DispatcherServletAdvice.class;
+        return LoadBalancerFeignClientAdvice.class;
     }
 
 }

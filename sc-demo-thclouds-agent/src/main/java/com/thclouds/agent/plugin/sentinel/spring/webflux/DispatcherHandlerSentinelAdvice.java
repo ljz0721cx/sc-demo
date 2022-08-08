@@ -1,61 +1,38 @@
-package com.thclouds.agent.plugin.sentinel.feign;
+package com.thclouds.agent.plugin.sentinel.spring.webflux;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.Tracer;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
-import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
-import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
-import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.CircuitBreaker;
-import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.CircuitBreakerStrategy;
-import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.EventObserverRegistry;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
-import com.alibaba.csp.sentinel.slots.system.SystemRule;
-import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
-import com.alibaba.csp.sentinel.util.TimeUtil;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
-import com.thclouds.agent.plugin.sentinel.spring.mvc.ControllerAdvice;
-import feign.Request;
 import net.bytebuddy.asm.Advice;
+import org.springframework.web.server.ServerWebExchange;
 
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+public class DispatcherHandlerSentinelAdvice {
 
-
-public class FeignAdvice {
-
-    public static ILog LOGGER = LogManager.getLogger(ControllerAdvice.class);
+    public static ILog LOGGER = LogManager.getLogger(DispatcherHandlerSentinelAdvice.class);
 
     @Advice.OnMethodEnter()
-    public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.info(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
-
-        Request request = (Request) allArguments[0];
-        Request.Options options = (Request.Options) allArguments[1];
-        URI asUri = URI.create(request.url());
-        String resourceName = methodName + ":" + asUri.getPath();
-        System.out.println(Thread.currentThread().getId() + "  参数：" + request.body() + "   " + request.url() + "   " + asUri.getHost() + "    " + asUri.getPath());
-
+    public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
+        LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
+        //获取到方法上的路径
+        ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
+        String path = exchange.getRequest().getURI().getPath();
+//        String traceId = exchange.getRequest().getHeaders().getFirst("traceId");
+//        LOGGER.info("traceId:{}",traceId);
+//        ServerWebExchangeContext.setTranceId(traceId);
+        LOGGER.info("resourceName:{}",path);
         Entry entry = null;
         try {
-            //TODO 根据资源的来源判断
-            // 被保护的逻辑
-            entry = SphU.entry(resourceName, EntryType.OUT);
-            //系统规则只对 IN 生效
-//            entry = SphU.entry("methodA", EntryType.IN);
-            System.out.println(Thread.currentThread().getId() + "  enter");
+            entry = SphU.entry(path, EntryType.IN);
         } catch (FlowException e) {
             LOGGER.info("限流 {}",e);
             throw new RuntimeException("BlockException 系统限流了，请稍后再试!");
@@ -76,22 +53,20 @@ public class FeignAdvice {
     }
 
 
+
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-
         if (e != null && !BlockException.isBlockException(e)) {
             Tracer.trace(e);
             LOGGER.error(e,"{} {} exit",className,methodName);
         }
-        EntryHolder entryHolder = EntryContext.getEntryHolder();
 
+        EntryHolder entryHolder = EntryContext.getEntryHolder();
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
             LOGGER.info("{} {} exit",className,methodName);
         }
-
     }
-
 
 }

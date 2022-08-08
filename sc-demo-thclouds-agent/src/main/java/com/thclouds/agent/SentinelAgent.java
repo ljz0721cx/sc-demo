@@ -88,7 +88,7 @@ public class SentinelAgent {
             if (LOGGER.isDebugEnable()) {
                 LOGGER.debug("On Transformation class {}.", typeDescription.getName());
             }
-
+            //打印加强的类
             InstrumentDebuggingClass.INSTANCE.log(dynamicType);
         }
 

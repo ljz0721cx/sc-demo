@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.trace.feign;
+package com.thclouds.agent.plugin.trace.spring.mvc;
 
 import com.thclouds.agent.plugin.IPlugin;
 import com.thclouds.agent.plugin.InterceptPoint;
@@ -7,10 +7,11 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class FeignClientPlugin implements IPlugin {
+public class DispatcherServletTracePlugin implements IPlugin {
+
     @Override
     public String name() {
-        return "traceFeignPlugin";
+        return "traceDispatcherServletPlugin";
     }
 
     @Override
@@ -19,15 +20,14 @@ public class FeignClientPlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("feign.Client$Default")
-                                ;
+                        return ElementMatchers.nameStartsWith("org.springframework.web.servlet.DispatcherServlet");
                     }
 
                     @Override
                     public ElementMatcher<MethodDescription> buildMethodsMatcher() {
                         return ElementMatchers.isMethod()
                                 .and(ElementMatchers.any())
-                                .and(ElementMatchers.nameStartsWith("execute"))
+                                .and(ElementMatchers.named("doService"))
                                 ;
                     }
                 }
@@ -36,7 +36,7 @@ public class FeignClientPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return FeignClientAdvice.class;
+        return DispatcherServletTraceAdvice.class;
     }
 
 }

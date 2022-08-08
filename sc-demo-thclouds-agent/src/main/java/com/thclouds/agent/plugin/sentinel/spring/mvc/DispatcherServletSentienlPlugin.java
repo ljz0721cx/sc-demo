@@ -7,7 +7,7 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class DispatcherServletPlugin implements IPlugin {
+public class DispatcherServletSentienlPlugin implements IPlugin {
 
     @Override
     public String name() {
@@ -36,7 +36,7 @@ public class DispatcherServletPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return DispatcherServletAdvice.class;
+        return DispatcherServletSentinelAdvice.class;
     }
 
 }

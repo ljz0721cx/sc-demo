@@ -8,7 +8,7 @@ import net.bytebuddy.matcher.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-public class ControllerPlugin implements IPlugin {
+public class ControllerSentinelPlugin implements IPlugin {
 
     @Override
     public String name() {
@@ -41,7 +41,7 @@ public class ControllerPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return ControllerAdvice.class;
+        return ControllerSentinelAdvice.class;
     }
 
 }

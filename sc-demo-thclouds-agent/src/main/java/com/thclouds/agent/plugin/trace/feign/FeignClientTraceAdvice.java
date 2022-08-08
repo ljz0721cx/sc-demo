@@ -10,9 +10,9 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 
-public class FeignClientAdvice {
+public class FeignClientTraceAdvice {
 
-    public static ILog LOGGER = LogManager.getLogger(FeignClientAdvice.class);
+    public static ILog LOGGER = LogManager.getLogger(FeignClientTraceAdvice.class);
 
     public static Field FIELD_HEADERS_OF_REQUEST;
 
@@ -30,7 +30,6 @@ public class FeignClientAdvice {
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.info(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
         Request request = (Request) allArguments[0];
-
         String tranceId = ServerWebExchangeContext.getTranceId();
         List<String> tranceIds = new ArrayList<>();
         tranceIds.add(tranceId);
@@ -48,9 +47,8 @@ public class FeignClientAdvice {
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-
+        LOGGER.warn("error {}",e);
         LOGGER.info("tranceId {}" ,ServerWebExchangeContext.getTranceId());
-
     }
 
 
