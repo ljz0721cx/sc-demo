@@ -75,12 +75,12 @@ public class Config {
     public static class Rule {
 
         public static String REMOVE_ADDRESS = "127.0.0.1:8848";
-        // nacos group
-        public static String GROUP_ID = "DEFAULT_GROUP";
+
+        public static String GROUP_ID = "SENTINEL_GROUP";
 
         public static String NAMESPACE_ID = "dev";
 
-        public static String FLOW_DATA_ID = "flow.rule";
+        public static String FLOW_DATA_ID = "thcloud_company-flow-rules1";
 
         public static String DEGRADE_DATA_ID = "degrade.rule";
 

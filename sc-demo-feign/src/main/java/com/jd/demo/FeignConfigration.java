@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Bean;
  * @author Janle qq:645905201
  * @date 2018/6/5 20:16
  */
-@Configurable
-public class FeignConfigration {
-    @Bean
-    public Contract feignContract() {
-        //return new feign.Contract().Default();
-        return null;
-    }
-}
+//@Configurable
+//public class FeignConfigration {
+//    @Bean
+//    public Contract feignContract() {
+//        //return new feign.Contract().Default();
+//        return null;
+//    }
+//}

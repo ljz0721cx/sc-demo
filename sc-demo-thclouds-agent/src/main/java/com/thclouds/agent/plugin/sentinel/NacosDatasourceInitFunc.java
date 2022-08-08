@@ -40,6 +40,9 @@ public class NacosDatasourceInitFunc implements InitFunc {
                     source -> JSON.parseObject(source, new TypeReference<List<FlowRule>>() {
                     }));
             FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
+
+            List<FlowRule> rules = FlowRuleManager.getRules();
+            LOGGER.info("rules {}",rules);
         } catch (Exception e) {
             e.printStackTrace();
         }

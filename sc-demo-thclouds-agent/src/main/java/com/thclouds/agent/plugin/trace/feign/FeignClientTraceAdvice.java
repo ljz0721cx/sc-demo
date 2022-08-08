@@ -30,6 +30,7 @@ public class FeignClientTraceAdvice {
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.info(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
         Request request = (Request) allArguments[0];
+
         String tranceId = ServerWebExchangeContext.getTranceId();
         List<String> tranceIds = new ArrayList<>();
         tranceIds.add(tranceId);

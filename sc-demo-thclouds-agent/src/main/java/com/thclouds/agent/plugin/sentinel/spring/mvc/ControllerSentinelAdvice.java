@@ -4,11 +4,13 @@ import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.Tracer;
+import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
+import com.thclouds.agent.conf.Config;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
@@ -38,9 +40,10 @@ public class ControllerSentinelAdvice {
                 path = basePathRequestMapping.path()[0] + "/" + subPath;
             }
         }
-        LOGGER.info("resourceName:{}",path);
+        LOGGER.info("resourceName: {} {}",path,Config.Agent.SERVICE_NAME);
         Entry entry = null;
         try {
+            ContextUtil.enter(Config.Agent.SERVICE_NAME);
             entry = SphU.entry(path, EntryType.IN);
         } catch (FlowException e) {
             LOGGER.info("限流 {}",e);

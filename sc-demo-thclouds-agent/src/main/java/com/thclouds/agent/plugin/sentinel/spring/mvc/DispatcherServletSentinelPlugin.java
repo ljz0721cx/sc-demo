@@ -7,7 +7,7 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class DispatcherServletSentienlPlugin implements IPlugin {
+public class DispatcherServletSentinelPlugin implements IPlugin {
 
     @Override
     public String name() {

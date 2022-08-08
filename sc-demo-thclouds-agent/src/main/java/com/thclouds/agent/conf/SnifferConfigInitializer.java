@@ -74,15 +74,14 @@ public class SnifferConfigInitializer {
         // reconfigure logger after config initialization
         configureLogger();
         LOGGER = LogManager.getLogger(SnifferConfigInitializer.class);
-
         if (StringUtil.isEmpty(Config.Agent.SERVICE_NAME)) {
             throw new ExceptionInInitializerError("`agent.service_name` is missing.");
         }else {
             System.setProperty("project.name", Config.Agent.SERVICE_NAME);
             System.setProperty("csp.sentinel.dashboard.server", Config.Sentinel.DASHBOARD_SERVER);
-            System.setProperty("csp.sentinel.log.dir", Config.Sentinel.LOG_DIR);
-            System.setProperty("csp.sentinel.heartbeat.interval.ms", Config.Sentinel.HEARTBEAT_INTERVAL_MS);
-//
+//            System.setProperty("csp.sentinel.log.dir", Config.Sentinel.LOG_DIR);
+//            System.setProperty("csp.sentinel.heartbeat.interval.ms", Config.Sentinel.HEARTBEAT_INTERVAL_MS);
+////
 //            System.setProperty("csp.sentinel.log.output.type", Config.Sentinel.SENTINEL_DASHBOARD_SERVER);
 
         }

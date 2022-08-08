@@ -4,11 +4,13 @@ import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.EntryType;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.Tracer;
+import com.alibaba.csp.sentinel.context.ContextUtil;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
+import com.thclouds.agent.conf.Config;
 import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
@@ -29,12 +31,13 @@ public class LoadBalancerFeignClientAdvice {
 
         Request request = (Request) allArguments[0];
         URI asUri = URI.create(request.url());
-        String resourceName = methodName + ":" + asUri.getPath();
+        String resourceName = asUri.getPath();
         System.out.println(Thread.currentThread().getId() + "  参数：" + request.body() + "   " + request.url() + "   " + asUri.getHost() + "    " + asUri.getPath());
-
+        LOGGER.info("resourceName: {} {}",resourceName,Config.Agent.SERVICE_NAME);
         Entry entry = null;
         try {
             // 被保护的逻辑
+            ContextUtil.enter(Config.Agent.SERVICE_NAME);
             entry = SphU.entry(resourceName, EntryType.OUT);
             //系统规则只对 IN 生效
 //            entry = SphU.entry("methodA", EntryType.IN);
