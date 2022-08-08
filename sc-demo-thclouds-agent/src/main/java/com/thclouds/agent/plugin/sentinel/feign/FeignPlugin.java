@@ -10,7 +10,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 public class FeignPlugin implements IPlugin {
     @Override
     public String name() {
-        return "FeignPlugin";
+        return "sentinelFeignPlugin";
     }
 
     @Override

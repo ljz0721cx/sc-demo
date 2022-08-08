@@ -10,7 +10,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 public class HandlerResultPlugin implements IPlugin {
     @Override
     public String name() {
-        return "ViewResultHandlerPlugin";
+        return "viewResultHandlerPlugin";
     }
 
     @Override

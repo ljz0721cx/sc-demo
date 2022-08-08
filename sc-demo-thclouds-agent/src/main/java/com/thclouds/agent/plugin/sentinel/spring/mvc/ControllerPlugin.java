@@ -12,7 +12,7 @@ public class ControllerPlugin implements IPlugin {
 
     @Override
     public String name() {
-        return "ControllerPlugin";
+        return "sentinelControllerPlugin";
     }
 
     @Override

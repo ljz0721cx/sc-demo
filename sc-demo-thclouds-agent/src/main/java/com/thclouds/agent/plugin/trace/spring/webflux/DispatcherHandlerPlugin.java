@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.sentinel.spring.webflux;
+package com.thclouds.agent.plugin.trace.spring.webflux;
 
 import com.thclouds.agent.plugin.IPlugin;
 import com.thclouds.agent.plugin.InterceptPoint;
@@ -11,7 +11,7 @@ public class DispatcherHandlerPlugin implements IPlugin {
 
     @Override
     public String name() {
-        return "sentinelDispatcherHandlerPlugin";
+        return "traceDispatcherHandlerPlugin";
     }
 
     @Override

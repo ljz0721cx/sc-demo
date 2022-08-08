@@ -17,7 +17,7 @@ public class ThreadingMethodPlugin implements IPlugin {
 
     @Override
     public String name() {
-        return "ThreadingMethodPlugin";
+        return "jdkThreadingMethodPlugin";
     }
 
     @Override

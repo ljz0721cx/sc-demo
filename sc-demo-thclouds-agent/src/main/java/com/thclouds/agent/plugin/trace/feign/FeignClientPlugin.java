@@ -1,4 +1,4 @@
-package com.thclouds.agent.plugin.sentinel.spring.webflux;
+package com.thclouds.agent.plugin.trace.feign;
 
 import com.thclouds.agent.plugin.IPlugin;
 import com.thclouds.agent.plugin.InterceptPoint;
@@ -7,11 +7,10 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class DispatcherHandlerPlugin implements IPlugin {
-
+public class FeignClientPlugin implements IPlugin {
     @Override
     public String name() {
-        return "sentinelDispatcherHandlerPlugin";
+        return "traceFeignPlugin";
     }
 
     @Override
@@ -20,14 +19,15 @@ public class DispatcherHandlerPlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("org.springframework.web.reactive.DispatcherHandler");
+                        return ElementMatchers.nameStartsWith("feign.Client$Default")
+                                ;
                     }
 
                     @Override
                     public ElementMatcher<MethodDescription> buildMethodsMatcher() {
                         return ElementMatchers.isMethod()
                                 .and(ElementMatchers.any())
-                                .and(ElementMatchers.named("handle"))
+                                .and(ElementMatchers.nameStartsWith("execute"))
                                 ;
                     }
                 }
@@ -36,7 +36,7 @@ public class DispatcherHandlerPlugin implements IPlugin {
 
     @Override
     public Class adviceClass() {
-        return DispatcherHandlerAdvice.class;
+        return FeignClientAdvice.class;
     }
 
 }
