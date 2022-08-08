@@ -6,6 +6,7 @@ import com.thclouds.agent.conf.SnifferConfigInitializer;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.plugin.*;
+import com.thclouds.agent.utils.InstrumentDebuggingClass;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
@@ -19,7 +20,6 @@ import java.lang.instrument.Instrumentation;
 import java.util.*;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
-import static net.bytebuddy.matcher.ElementMatchers.isInterface;
 
 public class SentinelAgent {
     private static ILog LOGGER = LogManager.getLogger(SentinelAgent.class);

@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LoggerDelayApplication {
     public static void main(String[] args) {
         SpringApplication.run(LoggerDelayApplication.class, args);
-        new Thread(new LogProducer()).start();
-        new Thread(new LogTaskConsumer()).start();
+//        new Thread(new LogProducer()).start();
+//        new Thread(new LogTaskConsumer()).start();
     }
 
 }

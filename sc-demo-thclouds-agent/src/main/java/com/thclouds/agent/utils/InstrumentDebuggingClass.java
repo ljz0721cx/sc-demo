@@ -16,7 +16,7 @@
  *
  */
 
-package com.thclouds.agent.plugin;
+package com.thclouds.agent.utils;
 
 import com.thclouds.agent.boot.AgentPackageNotFoundException;
 import com.thclouds.agent.boot.AgentPackagePath;

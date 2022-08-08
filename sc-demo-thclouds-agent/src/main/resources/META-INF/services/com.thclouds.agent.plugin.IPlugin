@@ -1,5 +1,5 @@
 com.thclouds.agent.plugin.sentinel.spring.mvc.ControllerPlugin
 com.thclouds.agent.plugin.sentinel.spring.webflux.DispatcherHandlerPlugin
 com.thclouds.agent.plugin.sentinel.feign.FeignPlugin
+com.thclouds.agent.plugin.sentinel.spring.mvc.DispatcherServletPlugin
 com.thclouds.agent.plugin.mapping.conflicts.HandlerResultPlugin
-com.thclouds.agent.plugin.jdk.threading.ThreadingMethodPlugin

@@ -28,6 +28,7 @@ public class ThreadingMethodPlugin implements IPlugin {
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
 //                        return   ElementMatchers.hasGenericSuperType(ElementMatchers.named("java.util.concurrent.Callable")).and(ElementMatchers.nameStartsWith("com.thclouds"));
                         return hasSuperType(named("java.util.concurrent.Callable")).and(not(isInterface()))
+                                .and(not(nameStartsWith("com.thclouds.agent")))
                                 .and(not(nameStartsWith("com.alibaba.nacos")))
                                 .and(not(nameStartsWith("java.util.concurrent")))
                                 .and(not(nameStartsWith("sun")))
@@ -56,6 +57,7 @@ public class ThreadingMethodPlugin implements IPlugin {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
                         return hasSuperType(named("java.lang.Runnable")).and(not(isInterface()))
+                                .and(not(nameStartsWith("com.thclouds.agent")))
                                 .and(not(nameStartsWith("com.alibaba.nacos")))
                                 .and(not(nameStartsWith("java.util.concurrent")))
                                 .and(not(nameStartsWith("sun")))

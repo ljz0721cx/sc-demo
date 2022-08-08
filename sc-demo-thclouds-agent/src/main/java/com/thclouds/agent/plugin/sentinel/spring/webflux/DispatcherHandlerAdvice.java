@@ -27,9 +27,9 @@ public class DispatcherHandlerAdvice {
         //获取到方法上的路径
         ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
         String path = exchange.getRequest().getURI().getPath();
-        String traceId = exchange.getRequest().getHeaders().getFirst("traceId");
-        LOGGER.info("traceId:{}",traceId);
-        ServerWebExchangeContext.setTranceId(traceId);
+//        String traceId = exchange.getRequest().getHeaders().getFirst("traceId");
+//        LOGGER.info("traceId:{}",traceId);
+//        ServerWebExchangeContext.setTranceId(traceId);
         LOGGER.info("resourceName:{}",path);
         Entry entry = null;
         try {
