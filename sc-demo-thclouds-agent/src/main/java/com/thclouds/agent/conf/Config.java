@@ -89,6 +89,17 @@ public class Config {
 
     }
 
+    public static class Sentinel{
+
+        public static String DASHBOARD_SERVER = "127.0.0.1:8888";
+
+        public static String LOG_DIR ="";
+
+        public static String HEARTBEAT_INTERVAL_MS ="";
+
+
+    }
+
     public static class Plugin {
         /**
          * Control the length of the peer field.
