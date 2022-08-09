@@ -19,7 +19,11 @@ import com.alibaba.csp.sentinel.dashboard.auth.AuthService;
 import com.alibaba.csp.sentinel.dashboard.auth.SimpleWebAuthServiceImpl;
 import com.alibaba.csp.sentinel.dashboard.config.DashboardConfig;
 import com.alibaba.csp.sentinel.dashboard.domain.Result;
+import com.alibaba.csp.sentinel.dashboard.service.ImsUserService;
+import com.alibaba.csp.sentinel.dashboard.support.ImsPasswordEncoder;
+import com.alibaba.csp.sentinel.dashboard.support.User;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @author cdfive
@@ -40,36 +45,61 @@ public class AuthController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
-    @Value("${auth.username:sentinel}")
-    private String authUsername;
+//    @Value("${auth.username:sentinel}")
+//    private String authUsername;
+//
+//    @Value("${auth.password:sentinel}")
+//    private String authPassword;
 
-    @Value("${auth.password:sentinel}")
-    private String authPassword;
+    private ImsPasswordEncoder passwordEncoder = new ImsPasswordEncoder() ;
+    private String authUsername;
+    @Value("${auth.password:sentinel}")	    private final String INNER_USERNAME = "thclouds";
 
     @Autowired
     private AuthService<HttpServletRequest> authService;
 
+    @Autowired
+    private ImsUserService imsUserService;
+
     @PostMapping("/login")
     public Result<AuthService.AuthUser> login(HttpServletRequest request, String username, String password) {
-        if (StringUtils.isNotBlank(DashboardConfig.getAuthUsername())) {
-            authUsername = DashboardConfig.getAuthUsername();
-        }
+//        if (StringUtils.isNotBlank(DashboardConfig.getAuthUsername())) {
+//            authUsername = DashboardConfig.getAuthUsername();
+//        }
+//
+//        if (StringUtils.isNotBlank(DashboardConfig.getAuthPassword())) {
+//            authPassword = DashboardConfig.getAuthPassword();
+//        }
+//
+//        /*
+//         * If auth.username or auth.password is blank(set in application.properties or VM arguments),
+//         * auth will pass, as the front side validate the input which can't be blank,
+//         * so user can input any username or password(both are not blank) to login in that case.
+//         */
+//        if (StringUtils.isNotBlank(authUsername) && !authUsername.equals(username)
+//                || StringUtils.isNotBlank(authPassword) && !authPassword.equals(password)) {
+//            LOGGER.error("Login failed: Invalid username or password, username=" + username);
+//            return Result.ofFail(-1, "Invalid username or password");
+//        }
+//
+//        AuthService.AuthUser authUser = new SimpleWebAuthServiceImpl.SimpleWebAuthUserImpl(username);
+//        request.getSession().setAttribute(SimpleWebAuthServiceImpl.WEB_SESSION_KEY, authUser);
+//        return Result.ofSuccess(authUser);
 
-        if (StringUtils.isNotBlank(DashboardConfig.getAuthPassword())) {
-            authPassword = DashboardConfig.getAuthPassword();
-        }
-
-        /*
-         * If auth.username or auth.password is blank(set in application.properties or VM arguments),
-         * auth will pass, as the front side validate the input which can't be blank,
-         * so user can input any username or password(both are not blank) to login in that case.
-         */
-        if (StringUtils.isNotBlank(authUsername) && !authUsername.equals(username)
-                || StringUtils.isNotBlank(authPassword) && !authPassword.equals(password)) {
-            LOGGER.error("Login failed: Invalid username or password, username=" + username);
-            return Result.ofFail(-1, "Invalid username or password");
-        }
-
+//
+//        User user = null;
+//        if (INNER_USERNAME.equals(username)) {
+//            user = new User();
+//            user.setUsername(INNER_USERNAME);
+//            user.setPassword(passwordEncoder.encode(DateFormatUtils.format(new Date(),"yyyyMMddHHmm")));
+//        }else {
+//            user = imsUserService.findUserByUsername(username);
+//        }
+//
+//        if (user == null || !passwordEncoder.matches(password,user.getPassword())) {
+//            LOGGER.error("Login failed: Invalid username or password, username=" + username);
+//            return Result.ofFail(-1, "Invalid username or password");
+//        }
         AuthService.AuthUser authUser = new SimpleWebAuthServiceImpl.SimpleWebAuthUserImpl(username);
         request.getSession().setAttribute(SimpleWebAuthServiceImpl.WEB_SESSION_KEY, authUser);
         return Result.ofSuccess(authUser);
