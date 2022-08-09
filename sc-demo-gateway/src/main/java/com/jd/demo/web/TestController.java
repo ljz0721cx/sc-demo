@@ -1,5 +1,7 @@
 package com.jd.demo.web;
 
+import com.jd.demo.feign.DemoFeignClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,12 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestController {
+
+    @Autowired
+    DemoFeignClient demoFeignClient;
     /**
      * @return
      */
-    @GetMapping("")
+    @GetMapping("/feign/demo/test1")
     public String index() {
-        return "match_path";
+      return   demoFeignClient.test1();
     }
 
     /**
