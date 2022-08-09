@@ -21,12 +21,11 @@ public class DispatcherServletTraceAdvice {
     }
 
 
-
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-        LOGGER.warn("error {}",e);
-        LOGGER.info("tranceId {}" ,ServerWebExchangeContext.getTranceId());
+        LOGGER.warn("error {}", e);
+        LOGGER.info("tranceId {}", ServerWebExchangeContext.getTranceId());
     }
 
 }

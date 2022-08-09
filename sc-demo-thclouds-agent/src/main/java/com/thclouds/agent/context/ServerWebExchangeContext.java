@@ -7,6 +7,7 @@ public class ServerWebExchangeContext {
 
     private static final TransmittableThreadLocal<ServerWebExchange> exchangeThreadLocal = new TransmittableThreadLocal<ServerWebExchange>();
     private static final TransmittableThreadLocal<String> tranceThreadLocal = new TransmittableThreadLocal();
+
     public static ServerWebExchange getExchange() {
         ServerWebExchange exchange = exchangeThreadLocal.get();
         return exchange;
@@ -17,7 +18,7 @@ public class ServerWebExchangeContext {
     }
 
     public static void removeExchange() {
-       exchangeThreadLocal.remove();
+        exchangeThreadLocal.remove();
     }
 
     public static String getTranceId() {

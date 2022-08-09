@@ -15,6 +15,7 @@ import com.thclouds.agent.context.EntryContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
+import com.thclouds.commons.base.exceptions.CheckedException;
 import net.bytebuddy.asm.Advice;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.*;
@@ -29,37 +30,37 @@ public class ControllerSentinelAdvice {
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
-        String path = "";
         //获取到方法上的路径
-        String subPath = getSubPath(objInst, methodName);
+        String path = getSubPath(objInst, methodName);
+        LOGGER.info("path: {} ", path);
         RequestMapping basePathRequestMapping = AnnotationUtils.findAnnotation(objInst.getClass(), RequestMapping.class);
         if (basePathRequestMapping != null) {
             if (basePathRequestMapping.value().length > 0) {
-                path = basePathRequestMapping.value()[0] + "/" + subPath;
+                path = basePathRequestMapping.value()[0] + "/" + path;
             } else if (basePathRequestMapping.path().length > 0) {
-                path = basePathRequestMapping.path()[0] + "/" + subPath;
+                path = basePathRequestMapping.path()[0] + "/" + path;
             }
         }
-        LOGGER.info("resourceName: {} {}",path,Config.Agent.SERVICE_NAME);
+        LOGGER.info("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
         Entry entry = null;
         try {
             ContextUtil.enter(Config.Agent.SERVICE_NAME);
             entry = SphU.entry(path, EntryType.IN);
         } catch (FlowException e) {
-            LOGGER.info("限流 {}",e);
-            throw new RuntimeException("BlockException 系统限流了，请稍后再试!");
+            LOGGER.info("限流 {}", e);
+            throw new CheckedException("系统限流了，请稍后再试!");
         } catch (DegradeException e) {
-            LOGGER.info("降级 {}",e);
-            throw new RuntimeException("BlockException 接口降级了，请稍后再试!");
+            LOGGER.info("降级 {}", e);
+            throw new CheckedException("接口降级了，请稍后再试!");
         } catch (SystemBlockException e) {
-            LOGGER.info("系统规则(负载/...不满足要求) {}",e);
-            throw new RuntimeException("BlockException 系统规则(负载/...不满足要求)");
+            LOGGER.info("系统规则(负载/...不满足要求) {}", e);
+            throw new CheckedException("系统规则(负载/...不满足要求)");
         } catch (AuthorityException e) {
-            LOGGER.info("授权规则不通过 {}",e);
-            throw new RuntimeException("BlockException 授权规则不通过");
-        } catch (Exception e) {
-            LOGGER.error("位置异常 {}",e);
-            throw new RuntimeException("BlockException");
+            LOGGER.info("授权规则不通过 {}", e);
+            throw new CheckedException("授权规则不通过");
+        } catch (BlockException e) {
+            LOGGER.error( e,"系统限流了，请稍后再试!");
+            throw new CheckedException("BlockException");
         }
         EntryContext.putEntryHolder(new EntryHolder(entry, null));
     }
@@ -105,14 +106,14 @@ public class ControllerSentinelAdvice {
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
         if (e != null && !BlockException.isBlockException(e)) {
             Tracer.trace(e);
-            LOGGER.error(e,"{} {} exit",className,methodName);
+            LOGGER.error(e, "{} {} exit", className, methodName);
         }
-        LOGGER.warn("error {}",e);
+        LOGGER.warn("error {}", e);
         EntryHolder entryHolder = EntryContext.getEntryHolder();
 
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
-            LOGGER.info("{} {} exit",className,methodName);
+            LOGGER.info("{} {} exit", className, methodName);
         }
     }
 

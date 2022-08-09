@@ -22,6 +22,7 @@ import com.thclouds.agent.boot.DefaultNamedThreadFactory;
 import com.thclouds.agent.conf.Config;
 import com.thclouds.agent.conf.Constants;
 import com.thclouds.agent.utils.RunnableWithExceptionProtection;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,28 +61,28 @@ public class FileWriter implements IWriter {
         logBuffer = new ArrayBlockingQueue(1024);
         final ArrayList<String> outputLogs = new ArrayList<String>(200);
         Executors.newSingleThreadScheduledExecutor(new DefaultNamedThreadFactory("LogFileWriter"))
-                 .scheduleAtFixedRate(new RunnableWithExceptionProtection(new Runnable() {
-                     @Override
-                     public void run() {
-                         try {
-                             logBuffer.drainTo(outputLogs);
-                             for (String log : outputLogs) {
-                                 writeToFile(log + Constants.LINE_SEPARATOR);
-                             }
-                             try {
-                                 fileOutputStream.flush();
-                             } catch (IOException e) {
-                                 e.printStackTrace();
-                             }
-                         } finally {
-                             outputLogs.clear();
-                         }
-                     }
-                 }, new RunnableWithExceptionProtection.CallbackWhenException() {
-                     @Override
-                     public void handle(Throwable t) {
-                     }
-                 }), 0, 1, TimeUnit.SECONDS);
+                .scheduleAtFixedRate(new RunnableWithExceptionProtection(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            logBuffer.drainTo(outputLogs);
+                            for (String log : outputLogs) {
+                                writeToFile(log + Constants.LINE_SEPARATOR);
+                            }
+                            try {
+                                fileOutputStream.flush();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } finally {
+                            outputLogs.clear();
+                        }
+                    }
+                }, new RunnableWithExceptionProtection.CallbackWhenException() {
+                    @Override
+                    public void handle(Throwable t) {
+                    }
+                }), 0, 1, TimeUnit.SECONDS);
     }
 
     /**
@@ -120,7 +121,7 @@ public class FileWriter implements IWriter {
                 @Override
                 public Object call() throws Exception {
                     new File(Config.Logging.DIR, Config.Logging.FILE_NAME).renameTo(new File(Config.Logging.DIR, Config.Logging.FILE_NAME + new SimpleDateFormat(".yyyy_MM_dd_HH_mm_ss")
-                        .format(new Date())));
+                            .format(new Date())));
                     return null;
                 }
             });

@@ -23,6 +23,7 @@ import java.io.*;
 /**
  * Copied from commons-io-2.2 (org.apache.commons.io.IOUtils)
  * Origin license: http://www.apache.org/licenses/LICENSE-2.0
+ *
  * @version $Id: IOUtils.java 1304177 2012-03-23 03:36:44Z ggregory $
  */
 public class IOUtils {
@@ -41,10 +42,10 @@ public class IOUtils {
      * This method buffers the input internally, so there is no need to use a
      * <code>BufferedInputStream</code>.
      *
-     * @param input  the <code>InputStream</code> to read from
+     * @param input the <code>InputStream</code> to read from
      * @return the requested byte array
      * @throws NullPointerException if the input is null
-     * @throws IOException if an I/O error occurs
+     * @throws IOException          if an I/O error occurs
      */
     public static byte[] toByteArray(InputStream input) throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -66,10 +67,10 @@ public class IOUtils {
      * use the <code>copyLarge(InputStream, OutputStream)</code> method.
      *
      * @param input  the <code>InputStream</code> to read from
-     * @param output  the <code>OutputStream</code> to write to
+     * @param output the <code>OutputStream</code> to write to
      * @return the number of bytes copied, or -1 if &gt; Integer.MAX_VALUE
      * @throws NullPointerException if the input or output is null
-     * @throws IOException if an I/O error occurs
+     * @throws IOException          if an I/O error occurs
      * @since 1.1
      */
     public static int copy(InputStream input, OutputStream output) throws IOException {
@@ -90,10 +91,10 @@ public class IOUtils {
      * The buffer size is given by {@link #DEFAULT_BUFFER_SIZE}.
      *
      * @param input  the <code>InputStream</code> to read from
-     * @param output  the <code>OutputStream</code> to write to
+     * @param output the <code>OutputStream</code> to write to
      * @return the number of bytes copied
      * @throws NullPointerException if the input or output is null
-     * @throws IOException if an I/O error occurs
+     * @throws IOException          if an I/O error occurs
      * @since 1.3
      */
     public static long copyLarge(InputStream input, OutputStream output)
@@ -110,11 +111,11 @@ public class IOUtils {
      * <p>
      *
      * @param input  the <code>InputStream</code> to read from
-     * @param output  the <code>OutputStream</code> to write to
+     * @param output the <code>OutputStream</code> to write to
      * @param buffer the buffer to use for the copy
      * @return the number of bytes copied
      * @throws NullPointerException if the input or output is null
-     * @throws IOException if an I/O error occurs
+     * @throws IOException          if an I/O error occurs
      * @since 2.2
      */
     public static long copyLarge(InputStream input, OutputStream output, byte[] buffer)
@@ -130,6 +131,7 @@ public class IOUtils {
 
     /**
      * close streams
+     *
      * @param closeable the closeable handler
      */
     public static void closeQuietly(Closeable closeable) {

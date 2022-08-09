@@ -15,17 +15,16 @@ public class DispatcherHandlerTraceAdvice {
         LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
         String traceId = exchange.getRequest().getHeaders().getFirst("traceId");
-        LOGGER.info("traceId:{}",traceId);
+        LOGGER.info("traceId:{}", traceId);
         ServerWebExchangeContext.setTranceId(traceId);
     }
-
 
 
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-        LOGGER.warn("error {}",e);
-        LOGGER.info("tranceId {}" ,ServerWebExchangeContext.getTranceId());
+        LOGGER.warn("error {}", e);
+        LOGGER.info("tranceId {}", ServerWebExchangeContext.getTranceId());
     }
 
 }

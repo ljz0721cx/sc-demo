@@ -207,9 +207,9 @@ public abstract class AbstractLogger implements ILog {
      * Any implementation MUST return string, which will be directly transferred to log destination,
      * i.e. log files OR stdout
      *
-     * @param level log level
+     * @param level   log level
      * @param message log message, which has been interpolated with user-defined parameters.
-     * @param e throwable if exists
+     * @param e       throwable if exists
      * @return string representation of the log, for example, raw json string for {@link JsonLogger}
      */
     protected abstract String format(LogLevel level, String message, Throwable e);

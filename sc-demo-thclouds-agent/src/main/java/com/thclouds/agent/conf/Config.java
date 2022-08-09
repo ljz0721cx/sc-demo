@@ -66,7 +66,6 @@ public class Config {
          * specifiers: %thread = ThreadName %level = LogLevel  {@link LogLevel} %timestamp = The now() who format is
          * 'yyyy-MM-dd HH:mm:ss:SSS' %class = SimpleName of TargetClass %msg = Message of user input %throwable =
          * Throwable of user input %agent_name = ServiceName of Agent {@link Agent#SERVICE_NAME}
-         *
          */
         public static String PATTERN = "%level %timestamp %thread %class : %msg %throwable";
 
@@ -88,13 +87,13 @@ public class Config {
 
     }
 
-    public static class Sentinel{
+    public static class Sentinel {
 
         public static String DASHBOARD_SERVER = "127.0.0.1:8888";
 
-        public static String LOG_DIR ="";
+        public static String LOG_DIR = "";
 
-        public static String HEARTBEAT_INTERVAL_MS ="";
+        public static String HEARTBEAT_INTERVAL_MS = "";
 
 
     }

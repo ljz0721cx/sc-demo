@@ -20,19 +20,20 @@ package com.thclouds.agent.logging.core;
 
 import com.google.gson.Gson;
 import com.thclouds.agent.logging.core.converters.LiteralConverter;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * An alternative logger for the SkyWalking agent. The default layout is
  * {
- *     "@timestamp": "", // timestamp
- *     "logger": "", // name of the Logger
- *     "level": "", // info|debug|warn|error
- *     "thread": "", // thread where the log method is called
- *     "message": "", // your log message
- *     "throwable": "",
- *     "agent_name" "service_name"
+ * "@timestamp": "", // timestamp
+ * "logger": "", // name of the Logger
+ * "level": "", // info|debug|warn|error
+ * "thread": "", // thread where the log method is called
+ * "message": "", // your log message
+ * "throwable": "",
+ * "agent_name" "service_name"
  * }
  */
 public class JsonLogger extends AbstractLogger {
@@ -49,7 +50,7 @@ public class JsonLogger extends AbstractLogger {
      * and thus should not be added to the json log.
      *
      * @param targetClass the logger class
-     * @param gson instance of Gson works as json serializer
+     * @param gson        instance of Gson works as json serializer
      */
     public JsonLogger(String targetClass, Gson gson) {
         super(targetClass);

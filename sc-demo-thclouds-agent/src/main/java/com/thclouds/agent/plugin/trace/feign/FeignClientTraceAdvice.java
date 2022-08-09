@@ -36,7 +36,7 @@ public class FeignClientTraceAdvice {
         tranceIds.add(tranceId);
         if (FIELD_HEADERS_OF_REQUEST != null) {
             Map<String, Collection<String>> headers = new LinkedHashMap<String, Collection<String>>();
-            headers.put("tranceId",tranceIds);
+            headers.put("tranceId", tranceIds);
             headers.putAll(request.headers());
 
             FIELD_HEADERS_OF_REQUEST.set(request, Collections.unmodifiableMap(headers));
@@ -48,8 +48,8 @@ public class FeignClientTraceAdvice {
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-        LOGGER.warn("error {}",e);
-        LOGGER.info("tranceId {}" ,ServerWebExchangeContext.getTranceId());
+        LOGGER.warn("error {}", e);
+        LOGGER.info("tranceId {}", ServerWebExchangeContext.getTranceId());
     }
 
 

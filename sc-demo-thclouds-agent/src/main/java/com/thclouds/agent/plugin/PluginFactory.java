@@ -11,14 +11,14 @@ public class PluginFactory {
         //获取到所有的插件
         Map<String, IPlugin> allPlugins = new HashMap();
         for (IPlugin iPlugin : ServiceLoader.load(IPlugin.class)) {
-            allPlugins.put(iPlugin.name(),iPlugin);
+            allPlugins.put(iPlugin.name(), iPlugin);
         }
         //排除不需要的插件
         String[] plugins = Config.Plugin.EXCLUDE_PLUGINS.split(",");
         for (String plugin : plugins) {
             allPlugins.remove(plugin);
         }
-        if ( allPlugins.size()> 0){
+        if (allPlugins.size() > 0) {
             pluginGroup = allPlugins.values();
         }
 

@@ -17,6 +17,7 @@
  */
 
 package com.thclouds.agent.boot;
+
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 
@@ -72,7 +73,7 @@ public class AgentPackagePath {
             } else {
                 int prefixLength = "file:".length();
                 String classLocation = urlString.substring(
-                    prefixLength, urlString.length() - classResourcePath.length());
+                        prefixLength, urlString.length() - classResourcePath.length());
                 return new File(classLocation);
             }
         }

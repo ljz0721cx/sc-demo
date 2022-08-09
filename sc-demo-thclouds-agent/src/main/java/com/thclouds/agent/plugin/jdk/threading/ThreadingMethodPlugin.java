@@ -72,8 +72,8 @@ public class ThreadingMethodPlugin implements IPlugin {
                                 .and(not(nameStartsWith("nz.net.ultraq.thymeleaf")))
                                 .and(not(nameStartsWith("java.nio.DirectByteBuffer")))
                                 .and(not(nameStartsWith("groovy.lang.Closure")))
-                       ;
-                 }
+                                ;
+                    }
 
                     @Override
                     public ElementMatcher<MethodDescription> buildMethodsMatcher() {

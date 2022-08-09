@@ -30,9 +30,9 @@ import java.util.*;
 public enum PropertyPlaceholderHelper {
 
     INSTANCE(
-        PlaceholderConfigurerSupport.DEFAULT_PLACEHOLDER_PREFIX,
-        PlaceholderConfigurerSupport.DEFAULT_PLACEHOLDER_SUFFIX, PlaceholderConfigurerSupport.DEFAULT_VALUE_SEPARATOR,
-        true
+            PlaceholderConfigurerSupport.DEFAULT_PLACEHOLDER_PREFIX,
+            PlaceholderConfigurerSupport.DEFAULT_PLACEHOLDER_SUFFIX, PlaceholderConfigurerSupport.DEFAULT_VALUE_SEPARATOR,
+            true
     );
 
     private final String placeholderPrefix;
@@ -132,7 +132,7 @@ public enum PropertyPlaceholderHelper {
                 String originalPlaceholder = placeholder;
                 if (!visitedPlaceholders.add(originalPlaceholder)) {
                     throw new IllegalArgumentException(
-                        "Circular placeholder reference '" + originalPlaceholder + "' in property definitions");
+                            "Circular placeholder reference '" + originalPlaceholder + "' in property definitions");
                 }
                 // Recursive invocation, parsing placeholders contained in the placeholder key.
                 placeholder = parseStringValue(placeholder, placeholderResolver, visitedPlaceholders);
@@ -160,7 +160,7 @@ public enum PropertyPlaceholderHelper {
                     startIndex = result.indexOf(this.placeholderPrefix, endIndex + this.placeholderSuffix.length());
                 } else {
                     throw new IllegalArgumentException(
-                        "Could not resolve placeholder '" + placeholder + "'" + " in value \"" + value + "\"");
+                            "Could not resolve placeholder '" + placeholder + "'" + " in value \"" + value + "\"");
                 }
                 visitedPlaceholders.remove(originalPlaceholder);
             } else {

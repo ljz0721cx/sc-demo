@@ -16,7 +16,7 @@
         <can.retransform.classes>true</can.retransform.classes>
         <shade.net.bytebuddy.source>net.bytebuddy</shade.net.bytebuddy.source>
 
-<!--        <shade.net.bytebuddy.target>${shade.package}.${shade.net.bytebuddy.source}</shade.net.bytebuddy.target>-->
+        <!--        <shade.net.bytebuddy.target>${shade.package}.${shade.net.bytebuddy.source}</shade.net.bytebuddy.target>-->
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <feign.version>9.5.0</feign.version>
@@ -129,6 +129,12 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.thclouds.commons</groupId>
+            <artifactId>thclouds-commons-base</artifactId>
+            <version>1.2.3-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>thclouds-agent</finalName>
@@ -149,7 +155,8 @@
                             <createSourcesJar>true</createSourcesJar>
                             <shadeSourcesContent>true</shadeSourcesContent>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Premain-Class>${premain.class}</Premain-Class>
                                         <Can-Redefine-Classes>${can.redefine.classes}</Can-Redefine-Classes>
@@ -163,18 +170,19 @@
                                     <exclude>io.grpc:*</exclude>
                                     <exclude>io.netty:*</exclude>
                                     <exclude>io.opencensus:*</exclude>
+
                                     <exclude>org.checkerframework:checker-compat-qual</exclude>
                                     <exclude>org.codehaus.mojo:animal-sniffer-annotations</exclude>
                                     <exclude>io.perfmark:*</exclude>
                                     <exclude>org.slf4j:*</exclude>
                                 </excludes>
                             </artifactSet>
-<!--                            <relocations>-->
-<!--                                <relocation>-->
-<!--                                    <pattern>${shade.net.bytebuddy.source}</pattern>-->
-<!--                                    <shadedPattern>${shade.net.bytebuddy.target}</shadedPattern>-->
-<!--                                </relocation>-->
-<!--                            </relocations>-->
+                            <!--                            <relocations>-->
+                            <!--                                <relocation>-->
+                            <!--                                    <pattern>${shade.net.bytebuddy.source}</pattern>-->
+                            <!--                                    <shadedPattern>${shade.net.bytebuddy.target}</shadedPattern>-->
+                            <!--                                </relocation>-->
+                            <!--                            </relocations>-->
                             <filters>
                                 <filter>
                                     <artifact>net.bytebuddy:byte-buddy</artifact>
@@ -199,7 +207,7 @@
                         </goals>
                         <configuration>
                             <target>
-                                <delete dir="${project.basedir}/thclouds-agent" />
+                                <delete dir="${project.basedir}/thclouds-agent"/>
                             </target>
                         </configuration>
                     </execution>
@@ -211,11 +219,13 @@
                         </goals>
                         <configuration>
                             <target>
-                                <mkdir dir="${project.basedir}/thclouds-agent" />
-                                <copy file="${project.build.directory}/thclouds-agent.jar" tofile="${project.basedir}/thclouds-agent/thclouds-agent.jar" overwrite="true" />
-                                <mkdir dir="${project.basedir}/thclouds-agent/conf" />
-                                <mkdir dir="${project.basedir}/thclouds-agent/logs" />
-                                <copydir src="${project.basedir}/conf" dest="${project.basedir}/thclouds-agent/conf" forceoverwrite="true" />
+                                <mkdir dir="${project.basedir}/thclouds-agent"/>
+                                <copy file="${project.build.directory}/thclouds-agent.jar"
+                                      tofile="${project.basedir}/thclouds-agent/thclouds-agent.jar" overwrite="true"/>
+                                <mkdir dir="${project.basedir}/thclouds-agent/conf"/>
+                                <mkdir dir="${project.basedir}/thclouds-agent/logs"/>
+                                <copydir src="${project.basedir}/conf" dest="${project.basedir}/thclouds-agent/conf"
+                                         forceoverwrite="true"/>
                             </target>
                         </configuration>
                     </execution>

@@ -30,7 +30,6 @@ public class SnifferConfigInitializer {
     private static boolean IS_INIT_COMPLETED = false;
 
 
-
     /**
      * 1、读取配置文件中的配置
      * 2、读取系统配置覆盖配置
@@ -76,7 +75,7 @@ public class SnifferConfigInitializer {
         LOGGER = LogManager.getLogger(SnifferConfigInitializer.class);
         if (StringUtil.isEmpty(Config.Agent.SERVICE_NAME)) {
             throw new ExceptionInInitializerError("`agent.service_name` is missing.");
-        }else {
+        } else {
             System.setProperty("project.name", Config.Agent.SERVICE_NAME);
             System.setProperty("csp.sentinel.dashboard.server", Config.Sentinel.DASHBOARD_SERVER);
 //            System.setProperty("csp.sentinel.log.dir", Config.Sentinel.LOG_DIR);
@@ -157,7 +156,7 @@ public class SnifferConfigInitializer {
      * <p>
      * such as: Property key of `agent.service_name` should be `thclouds.agent.service_name`
      */
-    private static void overrideConfigBySystemProp(){
+    private static void overrideConfigBySystemProp() {
         Properties systemProperties = System.getProperties();
         for (final Map.Entry<Object, Object> prop : systemProperties.entrySet()) {
             String key = prop.getKey().toString();
@@ -170,7 +169,6 @@ public class SnifferConfigInitializer {
 
     /**
      * 加载指定的配置文件或默认配置文件
-     *
      */
     private static InputStreamReader loadConfig() throws AgentPackageNotFoundException, ConfigNotFoundException {
         String specifiedConfigPath = System.getProperty(SPECIFIED_CONFIG_PATH);

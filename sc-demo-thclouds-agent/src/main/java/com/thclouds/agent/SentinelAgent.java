@@ -65,8 +65,8 @@ public class SentinelAgent {
 
         //环绕增强
         agentBuilder
-                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
-                .with(new RedefinitionListener())
+//                .with(AgentBuilder.RedefinitionStrategy.RETRANSFORMATION)
+//                .with(new RedefinitionListener())
                 .with(new Listener())
                 .installOn(inst);
 
