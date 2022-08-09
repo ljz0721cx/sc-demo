@@ -19,7 +19,7 @@ public class LoadBalancerFeignClientPlugin implements IPlugin {
                 new InterceptPoint() {
                     @Override
                     public ElementMatcher<TypeDescription> buildTypesMatcher() {
-                        return ElementMatchers.nameStartsWith("org.springframework.cloud.openfeign.ribbon.LoadBalancerFeignClient")
+                        return ElementMatchers.nameStartsWith("feign.Client$Default")
 //                                .or(ElementMatchers.nameStartsWith("com.thclouds.commons.base.request.intercepter.FeignRequestInterceptor"))
                                 ;
                     }

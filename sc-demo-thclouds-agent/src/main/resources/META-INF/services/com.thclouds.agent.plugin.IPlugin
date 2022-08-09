@@ -3,8 +3,6 @@ com.thclouds.agent.plugin.sentinel.spring.webflux.DispatcherHandlerSentinelPlugi
 com.thclouds.agent.plugin.sentinel.feign.LoadBalancerFeignClientPlugin
 com.thclouds.agent.plugin.sentinel.spring.mvc.DispatcherServletSentinelPlugin
 
-com.thclouds.agent.plugin.mapping.conflicts.HandlerResultPlugin
-
 
 com.thclouds.agent.plugin.trace.feign.FeignClientTracePlugin
 com.thclouds.agent.plugin.trace.spring.mvc.DispatcherServletTracePlugin

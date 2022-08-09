@@ -15,12 +15,13 @@
  */
 package com.alibaba.csp.sentinel.dashboard.datasource.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author leyou
  */
-public class MetricEntity {
+public class MetricEntity implements Serializable {
     private Long id;
     private Date gmtCreate;
     private Date gmtModified;

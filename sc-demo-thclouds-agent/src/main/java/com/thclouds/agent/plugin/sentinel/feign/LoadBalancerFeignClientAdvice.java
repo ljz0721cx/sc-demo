@@ -29,7 +29,6 @@ public class LoadBalancerFeignClientAdvice {
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.info(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
-
         Request request = (Request) allArguments[0];
         URI asUri = URI.create(request.url());
         String path = asUri.getPath();
@@ -38,7 +37,7 @@ public class LoadBalancerFeignClientAdvice {
         Entry entry = null;
         try {
             ContextUtil.enter(Config.Agent.SERVICE_NAME);
-            entry = SphU.entry(path, EntryType.IN);
+            entry = SphU.entry(path, EntryType.OUT);
         } catch (FlowException e) {
             LOGGER.info("限流 {}", e);
             throw new CheckedException("系统限流了，请稍后再试!");
