@@ -17,15 +17,33 @@ public class TestController {
      * @return
      */
     @GetMapping("/feign/demo/test1")
-    public String index() {
+    public String index1() {
+
       return   demoFeignClient.test1();
+    }
+
+    @GetMapping("/feign/demo/test2")
+    public String index2() {
+        return   demoFeignClient.test2();
+    }
+
+    @GetMapping("/feign/demo/test3")
+    public String index3() {
+
+        return   demoFeignClient.test3();
+    }
+
+    @GetMapping("/feign/demo/test4")
+    public String index4() {
+
+        return   demoFeignClient.test4();
     }
 
     /**
      * @return
      */
-    @GetMapping("testPath")
-    public String testPath() {
+    @GetMapping("/demo/test5")
+    public String test5() {
         return "match_path";
     }
 }

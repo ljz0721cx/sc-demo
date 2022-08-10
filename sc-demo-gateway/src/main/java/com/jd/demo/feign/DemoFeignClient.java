@@ -11,4 +11,13 @@ public interface DemoFeignClient {
 
     @RequestMapping(value = "/demo/test1", method = RequestMethod.GET)
     public String test1() ;
+
+    @RequestMapping(value = "/demo/test2", method = RequestMethod.GET)
+    public String test2() ;
+
+    @RequestMapping(value = "/demo/test3", method = RequestMethod.GET)
+    public String test3() ;
+
+    @RequestMapping(value = "/demo/test4", method = RequestMethod.GET)
+    public String test4() ;
 }
