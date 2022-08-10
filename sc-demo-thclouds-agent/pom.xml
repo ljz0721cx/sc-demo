@@ -208,42 +208,63 @@
                     </execution>
                 </executions>
             </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-antrun-plugin</artifactId>-->
+<!--                <version>1.8</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>clean</id>-->
+<!--                        <phase>clean</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <target>-->
+<!--                                <delete dir="${project.basedir}/thclouds-agent"/>-->
+<!--                            </target>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>package</id>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>run</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <target>-->
+<!--                                <mkdir dir="${project.basedir}/thclouds-agent"/>-->
+<!--                                <copy file="${project.build.directory}/thclouds-agent.jar"-->
+<!--                                      tofile="${project.basedir}/thclouds-agent/thclouds-agent.jar" overwrite="true"/>-->
+<!--                                <mkdir dir="${project.basedir}/thclouds-agent/conf"/>-->
+<!--                                <mkdir dir="${project.basedir}/thclouds-agent/logs"/>-->
+<!--                                <copydir src="${project.basedir}/conf" dest="${project.basedir}/thclouds-agent/conf"-->
+<!--                                         forceoverwrite="true"/>-->
+<!--                            </target>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/package.xml</descriptor>
+                    </descriptors>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
+                        <id>make-assembly</id>
+                        <phase>package</phase> <!--this is used for inheritance merges  绑定到这个生命周期-->
                         <goals>
-                            <goal>run</goal>
+                            <goal>single</goal> <!--执行一次-->
                         </goals>
-                        <configuration>
-                            <target>
-                                <delete dir="${project.basedir}/thclouds-agent"/>
-                            </target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>package</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${project.basedir}/thclouds-agent"/>
-                                <copy file="${project.build.directory}/thclouds-agent.jar"
-                                      tofile="${project.basedir}/thclouds-agent/thclouds-agent.jar" overwrite="true"/>
-                                <mkdir dir="${project.basedir}/thclouds-agent/conf"/>
-                                <mkdir dir="${project.basedir}/thclouds-agent/logs"/>
-                                <copydir src="${project.basedir}/conf" dest="${project.basedir}/thclouds-agent/conf"
-                                         forceoverwrite="true"/>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
 
     </build>
