@@ -1,3 +1,4 @@
 com.thclouds.agent.plugin.sentinel.NacosDatasourceInitFunc
 com.alibaba.csp.sentinel.transport.init.CommandCenterInitFunc
 com.alibaba.csp.sentinel.transport.init.HeartbeatSenderInitFunc
+com.alibaba.csp.sentinel.init.ParamFlowStatisticSlotCallbackInit
