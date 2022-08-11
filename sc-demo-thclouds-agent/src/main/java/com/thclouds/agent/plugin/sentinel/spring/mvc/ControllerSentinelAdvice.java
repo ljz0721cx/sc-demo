@@ -17,10 +17,10 @@ public class ControllerSentinelAdvice {
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
+        LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         //获取到方法上的路径
         String path = getSubPath(objInst, methodName);
-        LOGGER.info("path: {} ", path);
+        LOGGER.debug("path: {} ", path);
         RequestMapping basePathRequestMapping = AnnotationUtils.findAnnotation(objInst.getClass(), RequestMapping.class);
         if (basePathRequestMapping != null) {
             if (basePathRequestMapping.value().length > 0) {
@@ -29,7 +29,7 @@ public class ControllerSentinelAdvice {
                 path = basePathRequestMapping.path()[0] + "/" + path;
             }
         }
-        LOGGER.info("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
+        LOGGER.debug("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
         SentinelAdviceUtil.enter(path,LOGGER);
     }
 

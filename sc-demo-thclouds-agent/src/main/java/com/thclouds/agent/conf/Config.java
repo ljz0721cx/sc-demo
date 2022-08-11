@@ -89,12 +89,11 @@ public class Config {
 
     public static class Sentinel {
 
+        public static final String HEARTBEAT_CLIENT_IP = "";
+
         public static String DASHBOARD_SERVER = "127.0.0.1:8888";
 
-        public static String LOG_DIR = "";
-
-        public static String HEARTBEAT_INTERVAL_MS = "";
-
+        public static String HEARTBEAT_INTERVAL_MS = "1000";
 
     }
 

@@ -29,7 +29,7 @@ public class NacosDatasourceInitFunc implements InitFunc {
 
     @Override
     public void init() {
-        LOGGER.info("NacosDatasourceInitFun init");
+        LOGGER.debug("NacosDatasourceInitFun init");
         Properties properties = new Properties();
         properties.put(PropertyKeyConst.SERVER_ADDR, Config.Rule.REMOVE_ADDRESS);
         properties.put(PropertyKeyConst.NAMESPACE, Config.Rule.NAMESPACE_ID);
@@ -42,7 +42,7 @@ public class NacosDatasourceInitFunc implements InitFunc {
             FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
 
             List<FlowRule> rules = FlowRuleManager.getRules();
-            LOGGER.info("rules {}",rules);
+            LOGGER.debug("rules {}",rules);
         } catch (Exception e) {
             e.printStackTrace();
         }

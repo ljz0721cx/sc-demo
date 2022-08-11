@@ -28,7 +28,7 @@ public class FeignClientTraceAdvice {
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.info(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
+        LOGGER.debug(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
         Request request = (Request) allArguments[0];
 
         String tranceId = ServerWebExchangeContext.getTranceId();
@@ -48,8 +48,8 @@ public class FeignClientTraceAdvice {
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-        LOGGER.warn("error {}", e);
-        LOGGER.info("tranceId {}", ServerWebExchangeContext.getTranceId());
+        LOGGER.debug("error {}", e);
+        LOGGER.debug("tranceId {}", ServerWebExchangeContext.getTranceId());
     }
 
 

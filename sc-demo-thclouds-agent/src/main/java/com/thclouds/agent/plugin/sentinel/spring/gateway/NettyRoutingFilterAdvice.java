@@ -16,7 +16,7 @@ public class NettyRoutingFilterAdvice {
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
+        LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         //获取到方法上的路径
         ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
         URI requestUrl = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
@@ -24,7 +24,7 @@ public class NettyRoutingFilterAdvice {
         if (!ServerWebExchangeUtils.isAlreadyRouted(exchange) && ("http".equals(scheme) || "https".equals(scheme))) {
             ServerWebExchangeUtils.setAlreadyRouted(exchange);
             String path = exchange.getRequest().getURI().getPath();
-            LOGGER.info("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
+            LOGGER.debug("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
             SentinelAdviceUtil.enter(path,LOGGER);
         }
     }

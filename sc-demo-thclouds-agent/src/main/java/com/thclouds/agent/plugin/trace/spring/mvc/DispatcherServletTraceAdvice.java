@@ -13,7 +13,7 @@ public class DispatcherServletTraceAdvice {
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
+        LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         HttpServletRequest request = (HttpServletRequest) allArguments[0];
         String traceId = request.getHeader("traceId");
         ServerWebExchangeContext.setTranceId(traceId);
@@ -24,8 +24,8 @@ public class DispatcherServletTraceAdvice {
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-        LOGGER.warn("error {}", e);
-        LOGGER.info("tranceId {}", ServerWebExchangeContext.getTranceId());
+        LOGGER.debug("error {}", e);
+        LOGGER.debug("tranceId {}", ServerWebExchangeContext.getTranceId());
     }
 
 }

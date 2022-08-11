@@ -25,19 +25,19 @@ public class SentinelAdviceUtil {
             ContextUtil.enter(Config.Agent.SERVICE_NAME);
             entry = SphU.entry(path, EntryType.OUT);
         } catch (FlowException e) {
-            LOGGER.info("限流 {}", e);
+            LOGGER.debug("限流 {}", e);
             throw new CheckedException("系统限流了，请稍后再试!");
         } catch (DegradeException e) {
-            LOGGER.info("降级 {}", e);
+            LOGGER.debug("降级 {}", e);
             throw new CheckedException("接口降级了，请稍后再试!");
         } catch (SystemBlockException e) {
-            LOGGER.info("系统规则(负载/...不满足要求) {}", e);
+            LOGGER.debug("系统规则(负载/...不满足要求) {}", e);
             throw new CheckedException("系统规则(负载/...不满足要求)");
         } catch (AuthorityException e) {
-            LOGGER.info("授权规则不通过 {}", e);
+            LOGGER.debug("授权规则不通过 {}", e);
             throw new CheckedException("授权规则不通过");
         } catch (Exception e) {
-            LOGGER.info("未知异常 {}", e);
+            LOGGER.debug("未知异常 {}", e);
             throw new CheckedException("系统限流了，请稍后再试!");
         }
         EntryContext.putEntryHolder(new EntryHolder(entry, null));
@@ -52,7 +52,7 @@ public class SentinelAdviceUtil {
         EntryHolder entryHolder = EntryContext.getEntryHolder();
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
-            LOGGER.info("{} {} exit", className, methodName);
+            LOGGER.debug("{} {} exit", className, methodName);
         }
     }
 }

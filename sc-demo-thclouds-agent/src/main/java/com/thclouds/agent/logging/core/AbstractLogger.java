@@ -200,6 +200,19 @@ public abstract class AbstractLogger implements ILog {
 
     protected void logger(LogLevel level, String message, Throwable e) {
         WriterFactory.getLogWriter().write(this.format(level, message, e));
+//        if (level.equals(LogLevel.DEBUG)){
+//            LoggerBuilder.staticLogger().debug(message,e);
+//        }else if(level.equals(LogLevel.INFO)){
+//            LoggerBuilder.staticLogger().info(message);
+//        }else if(level.equals(LogLevel.WARN)){
+//            LoggerBuilder.staticLogger().warn(message);
+//        }else if(level.equals(LogLevel.ERROR)){
+//            LoggerBuilder.staticLogger().error(message,e);
+//        }else if(level.equals(LogLevel.TRACE)){
+//            LoggerBuilder.staticLogger().trace(message,e);
+//        }
+
+
     }
 
     /**

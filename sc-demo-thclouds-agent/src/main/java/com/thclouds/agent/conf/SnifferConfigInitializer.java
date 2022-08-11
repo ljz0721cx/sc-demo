@@ -77,11 +77,13 @@ public class SnifferConfigInitializer {
             throw new ExceptionInInitializerError("`agent.service_name` is missing.");
         } else {
             System.setProperty("project.name", Config.Agent.SERVICE_NAME);
+
             System.setProperty("csp.sentinel.dashboard.server", Config.Sentinel.DASHBOARD_SERVER);
-//            System.setProperty("csp.sentinel.log.dir", Config.Sentinel.LOG_DIR);
-//            System.setProperty("csp.sentinel.heartbeat.interval.ms", Config.Sentinel.HEARTBEAT_INTERVAL_MS);
-////
-//            System.setProperty("csp.sentinel.log.output.type", Config.Sentinel.SENTINEL_DASHBOARD_SERVER);
+            System.setProperty("csp.sentinel.log.dir", Config.Logging.DIR);
+            System.setProperty("csp.sentinel.heartbeat.interval.ms", Config.Sentinel.HEARTBEAT_INTERVAL_MS);
+            System.setProperty("csp.sentinel.log.output.type", Config.Logging.OUTPUT.toString().toLowerCase());
+//            System.setProperty("csp.sentinel.heartbeat.client.ip", Config.Sentinel.HEARTBEAT_CLIENT_IP);
+
 
         }
 

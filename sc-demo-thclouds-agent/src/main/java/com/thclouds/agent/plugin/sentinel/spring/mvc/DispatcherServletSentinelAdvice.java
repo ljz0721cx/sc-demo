@@ -15,11 +15,11 @@ public class DispatcherServletSentinelAdvice {
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.info("enter  className：" + objInst.getClass() + " methodName: " + methodName);
+        LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         //获取到方法上的路径
         HttpServletRequest request = (HttpServletRequest) allArguments[0];
         String path = request.getRequestURI();
-        LOGGER.info("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
+        LOGGER.debug("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
         SentinelAdviceUtil.enter(path,LOGGER);
     }
 
