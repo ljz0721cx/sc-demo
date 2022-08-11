@@ -12,14 +12,16 @@ public class Config {
 
     public static class Agent {
 
+        /**
+         * agent客户端名称
+         */
         public static String SERVICE_NAME = "demo";
 
+        /**
+         * 是否输出加强类到debugging目录下
+         */
         public static boolean IS_OPEN_DEBUGGING_CLASS = false;
 
-        /**
-         * 忽略的链路追踪的的后缀
-         */
-        public static String IGNORE_SUFFIX = ".jpg,.jpeg,.js,.css,.png,.bmp,.gif,.ico,.mp3,.mp4,.html,.svg";
     }
 
     public static class Logging {
@@ -79,7 +81,7 @@ public class Config {
 
         public static String NAMESPACE_ID = "dev";
 
-        public static String FLOW_DATA_ID = "thcloud_company-flow-rules1";
+        public static String FLOW_DATA_ID = "thcloud_company-flow-rules";
 
         public static String DEGRADE_DATA_ID = "degrade.rule";
 
@@ -98,13 +100,9 @@ public class Config {
     }
 
     public static class Plugin {
-        /**
-         * Control the length of the peer field.
-         */
-        public static int PEER_MAX_LENGTH = 200;
 
         /**
-         * Exclude activated plugins
+         * 排除的插件
          */
         public static String EXCLUDE_PLUGINS = "";
 
