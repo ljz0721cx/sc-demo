@@ -8,6 +8,10 @@ import net.bytebuddy.matcher.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author lixh
+ * @description mvc Controller拦截，限流加强
+ */
 public class ControllerSentinelPlugin implements IPlugin {
 
     @Override

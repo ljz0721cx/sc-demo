@@ -7,6 +7,10 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
+/**
+ * @author lixh
+ * @description 地址冲突检测
+ */
 public class HandlerResultPlugin implements IPlugin {
     @Override
     public String name() {

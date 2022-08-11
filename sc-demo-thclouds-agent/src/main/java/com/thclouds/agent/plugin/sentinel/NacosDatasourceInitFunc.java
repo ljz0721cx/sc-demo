@@ -22,6 +22,7 @@ import java.util.Properties;
 
 /**
  * @author lixh
+ * @description   sentinel InitFunc 动态从nacos拉取限流规则、降级规则
  */
 public class NacosDatasourceInitFunc implements InitFunc {
 

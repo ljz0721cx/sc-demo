@@ -1,6 +1,6 @@
 package com.thclouds.agent.plugin.trace.feign;
 
-import com.thclouds.agent.context.ServerWebExchangeContext;
+import com.thclouds.agent.context.AgentContext;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import feign.Request;
@@ -31,7 +31,7 @@ public class FeignClientTraceAdvice {
         LOGGER.debug(Thread.currentThread().getId() + "  className：" + className + " methodName: " + methodName);
         Request request = (Request) allArguments[0];
 
-        String tranceId = ServerWebExchangeContext.getTranceId();
+        String tranceId = AgentContext.getTranceId();
         List<String> tranceIds = new ArrayList<>();
         tranceIds.add(tranceId);
         if (FIELD_HEADERS_OF_REQUEST != null) {
@@ -49,7 +49,7 @@ public class FeignClientTraceAdvice {
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
         LOGGER.debug("error {}", e);
-        LOGGER.debug("tranceId {}", ServerWebExchangeContext.getTranceId());
+        LOGGER.debug("tranceId {}", AgentContext.getTranceId());
     }
 
 

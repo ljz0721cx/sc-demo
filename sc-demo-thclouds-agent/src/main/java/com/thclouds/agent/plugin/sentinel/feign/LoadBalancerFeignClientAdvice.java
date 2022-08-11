@@ -1,28 +1,18 @@
 package com.thclouds.agent.plugin.sentinel.feign;
 
-import com.alibaba.csp.sentinel.Entry;
-import com.alibaba.csp.sentinel.EntryType;
-import com.alibaba.csp.sentinel.SphU;
-import com.alibaba.csp.sentinel.Tracer;
-import com.alibaba.csp.sentinel.context.ContextUtil;
-import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
-import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
-import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.thclouds.agent.conf.Config;
-import com.thclouds.agent.context.EntryContext;
-import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import com.thclouds.agent.utils.SentinelAdviceUtil;
-import com.thclouds.commons.base.exceptions.CheckedException;
 import feign.Request;
 import net.bytebuddy.asm.Advice;
 
 import java.net.URI;
 
 
+/**
+ * @author lixh
+ */
 public class LoadBalancerFeignClientAdvice {
 
     public static ILog LOGGER = LogManager.getLogger(LoadBalancerFeignClientAdvice.class);

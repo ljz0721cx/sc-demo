@@ -7,6 +7,11 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
+
+/**
+ * @author lixh
+ * @description 拦截feign 请求 加强限流插件
+ */
 public class LoadBalancerFeignClientPlugin implements IPlugin {
     @Override
     public String name() {

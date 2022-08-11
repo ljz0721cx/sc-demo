@@ -7,6 +7,11 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
+
+/**
+ * @author lixh
+ * @description mvc DispatcherServlet拦截，限流加强
+ */
 public class DispatcherServletSentinelPlugin implements IPlugin {
 
     @Override

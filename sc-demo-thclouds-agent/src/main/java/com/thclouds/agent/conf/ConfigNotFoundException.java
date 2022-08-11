@@ -18,6 +18,10 @@
 
 package com.thclouds.agent.conf;
 
+/**
+ * @author lixh
+ * @description 配置文件没发现异常
+ */
 public class ConfigNotFoundException extends Exception {
     public ConfigNotFoundException(String message, Throwable cause) {
         super(message, cause);

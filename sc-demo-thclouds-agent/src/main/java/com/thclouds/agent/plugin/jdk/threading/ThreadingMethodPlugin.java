@@ -12,6 +12,7 @@ import static net.bytebuddy.matcher.ElementMatchers.isInterface;
 
 /**
  * @author lixh
+ * @description 线程加强
  */
 public class ThreadingMethodPlugin implements IPlugin {
 

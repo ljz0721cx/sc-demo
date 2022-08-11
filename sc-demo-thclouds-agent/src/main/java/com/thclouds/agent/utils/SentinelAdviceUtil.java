@@ -11,11 +11,15 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.thclouds.agent.conf.Config;
-import com.thclouds.agent.context.EntryContext;
+import com.thclouds.agent.context.AgentContext;
 import com.thclouds.agent.context.EntryHolder;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.commons.base.exceptions.CheckedException;
 
+/**
+ * @desciption 限流相关代码工具
+ * @author lixh
+ */
 public class SentinelAdviceUtil {
 
 
@@ -40,7 +44,7 @@ public class SentinelAdviceUtil {
             LOGGER.debug("未知异常 {}", e);
             throw new CheckedException("系统限流了，请稍后再试!");
         }
-        EntryContext.putEntryHolder(new EntryHolder(entry, null));
+        AgentContext.putEntryHolder(new EntryHolder(entry, null));
     }
 
     public static void exit(String className, String methodName, Throwable e, ILog LOGGER) {
@@ -49,7 +53,7 @@ public class SentinelAdviceUtil {
             LOGGER.error(e, "{} {} exit", className, methodName);
         }
 
-        EntryHolder entryHolder = EntryContext.getEntryHolder();
+        EntryHolder entryHolder = AgentContext.getEntryHolder();
         if (null != entryHolder) {
             entryHolder.getEntry().exit();
             LOGGER.debug("{} {} exit", className, methodName);

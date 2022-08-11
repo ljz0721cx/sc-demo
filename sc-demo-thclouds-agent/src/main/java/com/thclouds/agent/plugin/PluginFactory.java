@@ -4,6 +4,10 @@ import com.thclouds.agent.conf.Config;
 
 import java.util.*;
 
+/**
+ * 插件工厂，判断加载哪些插件
+ * @author lixh
+ */
 public class PluginFactory {
     public static Collection<IPlugin> pluginGroup = null;
 

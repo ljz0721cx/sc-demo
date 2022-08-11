@@ -1,6 +1,6 @@
 package com.thclouds.agent.plugin.jdk.threading;
 
-import com.thclouds.agent.context.ServerWebExchangeContext;
+import com.thclouds.agent.context.AgentContext;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import net.bytebuddy.asm.Advice;
@@ -15,13 +15,13 @@ public class ThreadingMethodAdvice {
 
     @Advice.OnMethodEnter()
     public static <ParamFlowException> void enter(@Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
-        LOGGER.debug("className {} in {} tranceId {}", className, methodName, ServerWebExchangeContext.getTranceId());
+        LOGGER.debug("className {} in {} tranceId {}", className, methodName, AgentContext.getTranceId());
     }
 
     @Advice.OnMethodExit()
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Return(readOnly = false, typing = Assigner.Typing.DYNAMIC) Object returned) {
 
-        LOGGER.debug("className {} exit {} tranceId {}", className, methodName, ServerWebExchangeContext.getTranceId());
+        LOGGER.debug("className {} exit {} tranceId {}", className, methodName, AgentContext.getTranceId());
     }
 }

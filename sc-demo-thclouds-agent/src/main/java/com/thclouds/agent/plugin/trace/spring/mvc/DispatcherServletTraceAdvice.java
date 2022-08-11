@@ -1,6 +1,6 @@
 package com.thclouds.agent.plugin.trace.spring.mvc;
 
-import com.thclouds.agent.context.ServerWebExchangeContext;
+import com.thclouds.agent.context.AgentContext;
 import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 import net.bytebuddy.asm.Advice;
@@ -16,7 +16,7 @@ public class DispatcherServletTraceAdvice {
         LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         HttpServletRequest request = (HttpServletRequest) allArguments[0];
         String traceId = request.getHeader("traceId");
-        ServerWebExchangeContext.setTranceId(traceId);
+        AgentContext.setTranceId(traceId);
 
     }
 
@@ -25,7 +25,7 @@ public class DispatcherServletTraceAdvice {
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
         LOGGER.debug("error {}", e);
-        LOGGER.debug("tranceId {}", ServerWebExchangeContext.getTranceId());
+        LOGGER.debug("tranceId {}", AgentContext.getTranceId());
     }
 
 }

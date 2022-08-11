@@ -4,6 +4,10 @@ import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 
+/**
+ * 插装点
+ * @author lixh
+ */
 public interface InterceptPoint {
     //类匹配规则
     ElementMatcher<TypeDescription> buildTypesMatcher();

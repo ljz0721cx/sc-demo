@@ -6,6 +6,7 @@ import com.thclouds.agent.logging.core.LogOutput;
 import com.thclouds.agent.logging.core.ResolverType;
 
 /**
+ * @author lixh
  * @description 统一配置信息
  */
 public class Config {

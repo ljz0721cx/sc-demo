@@ -18,7 +18,8 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * 初始化所有配置
+ * @author lixh
+ * @description 初始化所有配置
  */
 public class SnifferConfigInitializer {
 

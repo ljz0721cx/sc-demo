@@ -1,5 +1,9 @@
 package com.thclouds.agent.plugin;
 
+/**
+ * 插件工厂
+ * @author lixh
+ */
 public interface IPlugin {
     //名称
     String name();

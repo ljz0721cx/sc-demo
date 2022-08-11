@@ -7,6 +7,11 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
+/**
+ * @author lixh
+ * @description gateway NettyRoutingFilter拦截请求转发，限流加强
+ */
+
 public class NettyRoutingFilterlPlugin implements IPlugin {
 
     @Override
