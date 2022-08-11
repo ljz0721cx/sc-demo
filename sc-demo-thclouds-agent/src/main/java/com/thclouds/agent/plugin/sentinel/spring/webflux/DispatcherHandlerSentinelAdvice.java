@@ -18,14 +18,14 @@ public class DispatcherHandlerSentinelAdvice {
         ServerWebExchange exchange = (ServerWebExchange) allArguments[0];
         String path = exchange.getRequest().getURI().getPath();
         LOGGER.debug("resourceName: {} {}", path, Config.Agent.SERVICE_NAME);
-        SentinelAdviceUtil.enter(path,LOGGER);
+        SentinelAdviceUtil.enter(path, LOGGER);
     }
 
 
     @Advice.OnMethodExit(onThrowable = Throwable.class)
     public static void exit(@Advice.Origin("#t") String className,
                             @Advice.Origin("#m") String methodName, @Advice.Thrown Throwable e) {
-        SentinelAdviceUtil.exit(className, methodName, e,LOGGER);
+        SentinelAdviceUtil.exit(className, methodName, e, LOGGER);
     }
 
 }

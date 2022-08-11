@@ -19,7 +19,7 @@ import com.thclouds.commons.base.exceptions.CheckedException;
 public class SentinelAdviceUtil {
 
 
-    public static void enter(String path,ILog LOGGER) {
+    public static void enter(String path, ILog LOGGER) {
         Entry entry = null;
         try {
             ContextUtil.enter(Config.Agent.SERVICE_NAME);
@@ -43,7 +43,7 @@ public class SentinelAdviceUtil {
         EntryContext.putEntryHolder(new EntryHolder(entry, null));
     }
 
-    public static void exit(String className, String methodName, Throwable e,ILog LOGGER) {
+    public static void exit(String className, String methodName, Throwable e, ILog LOGGER) {
         if (e != null && !BlockException.isBlockException(e)) {
             Tracer.trace(e);
             LOGGER.error(e, "{} {} exit", className, methodName);

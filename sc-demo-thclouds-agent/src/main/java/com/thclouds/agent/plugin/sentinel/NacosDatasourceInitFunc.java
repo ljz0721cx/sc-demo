@@ -42,7 +42,7 @@ public class NacosDatasourceInitFunc implements InitFunc {
             FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
 
             List<FlowRule> rules = FlowRuleManager.getRules();
-            LOGGER.debug("rules {}",rules);
+            LOGGER.debug("rules {}", rules);
         } catch (Exception e) {
             e.printStackTrace();
         }
