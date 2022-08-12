@@ -84,6 +84,8 @@ public class Config {
 
         public static String FLOW_DATA_ID = "thcloud_company-flow-rules";
 
+        public static String PARAM_DATA_ID = "thcloud_company-param-rules";
+
         public static String DEGRADE_DATA_ID = "degrade.rule";
 
         public static String SYSTEM_DATA_ID = "system.rule";
@@ -92,11 +94,21 @@ public class Config {
 
     public static class Sentinel {
 
-        public static final String HEARTBEAT_CLIENT_IP = "";
+        public static  String HEARTBEAT_CLIENT_IP = "";
 
         public static String DASHBOARD_SERVER = "127.0.0.1:8888";
 
         public static String HEARTBEAT_INTERVAL_MS = "1000";
+        /**
+         * 参数索引和参数获取位置映射
+         * 从cookie中获取【cookie_cookieName:cookieValue】
+         * 从header中获取【header_headerName:cookieValue】
+         * 从param中获取【param_paramName:cookieValue】
+         *          参数索引(0)      参数索引(1)
+         * demo:  cookie_SESSION|header_authorization|header_...
+         *
+         */
+        public static String PARAM_IDX_MAPPING = "";
 
     }
 
@@ -106,6 +118,17 @@ public class Config {
          * 排除的插件
          */
         public static String EXCLUDE_PLUGINS = "";
+    }
+
+
+    public static class ParamIdxMapping{
+
+        public static String ZERO = "cookie_";
+
+        public static String ONE = "header_";
+
+        public static String TWO = "param_";
+
 
     }
 }

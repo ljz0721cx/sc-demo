@@ -4,7 +4,7 @@ com.thclouds.agent.plugin.sentinel.feign.LoadBalancerFeignClientPlugin
 com.thclouds.agent.plugin.sentinel.spring.mvc.DispatcherServletSentinelPlugin
 com.thclouds.agent.plugin.sentinel.spring.gateway.NettyRoutingFilterlPlugin
 
-#com.thclouds.agent.plugin.trace.feign.FeignClientTracePlugin
-#com.thclouds.agent.plugin.trace.spring.mvc.DispatcherServletTracePlugin
-#com.thclouds.agent.plugin.trace.spring.webflux.DispatcherHandlerTracePlugin
+com.thclouds.agent.plugin.trace.feign.FeignClientTracePlugin
+com.thclouds.agent.plugin.trace.spring.mvc.DispatcherServletTracePlugin
+com.thclouds.agent.plugin.trace.spring.webflux.DispatcherHandlerTracePlugin
 

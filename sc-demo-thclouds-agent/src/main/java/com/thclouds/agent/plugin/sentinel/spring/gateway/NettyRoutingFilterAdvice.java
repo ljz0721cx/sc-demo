@@ -15,7 +15,7 @@ public class NettyRoutingFilterAdvice {
     public static ILog LOGGER = LogManager.getLogger(NettyRoutingFilterAdvice.class);
 
     @Advice.OnMethodEnter()
-    public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
+    public static void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         //获取到方法上的路径
         ServerWebExchange exchange = (ServerWebExchange) allArguments[0];

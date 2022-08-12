@@ -1,5 +1,6 @@
 package com.thclouds.agent.plugin.sentinel;
 
+import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.csp.sentinel.datasource.ReadableDataSource;
 import com.alibaba.csp.sentinel.datasource.nacos.NacosDataSource;
 import com.alibaba.csp.sentinel.init.InitFunc;
@@ -7,9 +8,14 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleUtil;
 import com.alibaba.csp.sentinel.slots.system.SystemRule;
 import com.alibaba.csp.sentinel.slots.system.SystemRuleManager;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.thclouds.agent.conf.Config;
@@ -17,8 +23,10 @@ import com.thclouds.agent.logging.api.ILog;
 import com.thclouds.agent.logging.api.LogManager;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * @author lixh
@@ -41,9 +49,25 @@ public class NacosDatasourceInitFunc implements InitFunc {
                     source -> JSON.parseObject(source, new TypeReference<List<FlowRule>>() {
                     }));
             FlowRuleManager.register2Property(flowRuleDataSource.getProperty());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            List<FlowRule> rules = FlowRuleManager.getRules();
-            LOGGER.debug("rules {}", rules);
+        //参数规则初始化
+        try {
+            ReadableDataSource<String, List<ParamFlowRule>> paramFlowRuleDataSource = new NacosDataSource(properties, Config.Rule.GROUP_ID, Config.Rule.PARAM_DATA_ID,
+                    source -> {
+                        JSONArray rules = JSON.parseArray((String) source);
+                        return rules.stream().map(ruleJson -> {
+                            JSONObject ruleEntity = (JSONObject) ruleJson;
+                            String rule = ruleEntity.getString("rule");
+                            ParamFlowRule paramFlowRule = JSON.parseObject(rule, new TypeReference<ParamFlowRule>() {
+                            });
+                            return paramFlowRule;
+                        }).collect(Collectors.toList());
+                    });
+            ParamFlowRuleManager.register2Property(paramFlowRuleDataSource.getProperty());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,16 +82,7 @@ public class NacosDatasourceInitFunc implements InitFunc {
             e.printStackTrace();
         }
 
-        //系统保护规则初始化
-        try {
-            ReadableDataSource<String, List<SystemRule>> systemRuleDataSource = new NacosDataSource<>(properties, Config.Rule.GROUP_ID, Config.Rule.SYSTEM_DATA_ID,
-                    source -> JSON.parseObject(source, new TypeReference<List<SystemRule>>() {
-                    }));
-            SystemRuleManager.register2Property(systemRuleDataSource.getProperty());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //访问控制规则
     }
+
+
 }

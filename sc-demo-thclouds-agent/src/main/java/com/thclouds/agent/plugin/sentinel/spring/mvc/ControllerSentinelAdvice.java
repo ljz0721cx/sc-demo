@@ -16,7 +16,7 @@ public class ControllerSentinelAdvice {
     public static ILog LOGGER = LogManager.getLogger(ControllerSentinelAdvice.class);
 
     @Advice.OnMethodEnter()
-    public static <ParamFlowException> void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
+    public static void enter(@Advice.This Object objInst, @Advice.Origin("#t") String className, @Advice.Origin("#m") String methodName, @Advice.AllArguments Object[] allArguments) throws Exception {
         LOGGER.debug("enter  className：" + objInst.getClass() + " methodName: " + methodName);
         //获取到方法上的路径
         String path = getSubPath(objInst, methodName);

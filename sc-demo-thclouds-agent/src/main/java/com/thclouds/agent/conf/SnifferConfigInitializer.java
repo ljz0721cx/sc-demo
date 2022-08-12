@@ -1,5 +1,6 @@
 package com.thclouds.agent.conf;
 
+import ch.qos.logback.classic.Level;
 import com.thclouds.agent.boot.AgentPackageNotFoundException;
 import com.thclouds.agent.boot.AgentPackagePath;
 import com.thclouds.agent.logging.api.ILog;

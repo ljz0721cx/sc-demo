@@ -110,6 +110,8 @@ public class NacosDataSource<T> extends AbstractDataSource<String, T> {
         loadInitialConfig();
     }
 
+
+
     private void loadInitialConfig() {
         try {
             T newValue = loadConfig();
