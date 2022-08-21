@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>sc-demo-entity</module>
+<!--        <module>sc-demo-entity</module>
         <module>sc-demo-dao</module>
         <module>sc-demo-web</module>
         <module>sc-demo-eureka-server</module>
@@ -18,9 +18,9 @@
         <module>sc-demo-activity</module>
         <module>sc-demo-netty</module>
         <module>sc-demo-ynk</module>
-        <module>sc-demo-log</module>
+        <module>sc-demo-log</module>-->
         <module>sc-demo-gateway</module>
-        <module>sc-demo-thclouds-agent</module>
+<!--        <module>sc-demo-thclouds-agent</module>-->
     </modules>
 
     <properties>
