@@ -14,8 +14,10 @@ public class AuthTest {
 
     @Test
     public void test() throws InterruptedException {
+        int j=0;
         for (int i = 0; i < 1000000; i++) {
             int finalI = i;
+            j++;
             Runnable run = () -> {
                 Consumer<HttpHeaders> headersConsumer = httpHeaders -> {
                     httpHeaders.add("token", "user" + finalI);
@@ -29,7 +31,7 @@ public class AuthTest {
             };
             executor.execute(run);
         }
-
+        System.out.println(j);
         Thread.sleep(10000);
     }
 }

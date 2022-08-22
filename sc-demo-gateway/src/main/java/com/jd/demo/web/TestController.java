@@ -39,9 +39,9 @@ public class TestController {
     public String auth2(@PathVariable("token") String token) throws InterruptedException {
         String token1 = ((Map<String, String>) T.t.get()).get("token");
         if (!token1.equals(token)) {
-            System.out.println("======================" + Thread.currentThread().getName() + token1 + "!=" + token);
+            System.out.println("======================" + Thread.currentThread().getName() + " " + token1 + "!=" + token);
         }
-        if (token.endsWith("2") ) {
+        if (token.endsWith("2")) {
             Thread.sleep(1000000);
         }
         return "match_path";
