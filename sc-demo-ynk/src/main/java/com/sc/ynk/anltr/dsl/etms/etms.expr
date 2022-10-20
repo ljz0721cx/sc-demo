@@ -1,0 +1,18 @@
+String aa="你好";
+if(aa =="1" && 0==0){
+    return 1;
+}elseif(1==1){
+    return 0;
+}else{
+    return "你好";
+}
+/**处理函数**/
+
+/**JSON处理list或者**/
+Map num=$etms.stringToMap("json");
+Number num=$etms.add(3,4);
+List list=$etms.array("deal","String");
+for (Map b: list){
+    $etms.log(b);
+}
+return $etms.sm.bb(list);
