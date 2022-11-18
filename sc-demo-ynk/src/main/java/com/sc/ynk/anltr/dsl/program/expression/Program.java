@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Program {
     public List<Expression> expressions;
-
+    private Expression returnExpression;
     public Program() {
         this.expressions = new ArrayList<>();
     }
