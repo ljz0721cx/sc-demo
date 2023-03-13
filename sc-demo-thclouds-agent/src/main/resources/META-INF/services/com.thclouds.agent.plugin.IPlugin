@@ -1,4 +1,0 @@
-com.thclouds.agent.plugin.sentinel.impl.spring.mvc.ControllerPlugin
-com.thclouds.agent.plugin.sentinel.impl.spring.webflux.DispatcherHandlerPlugin
-com.thclouds.agent.plugin.sentinel.impl.feign.FeignPlugin
-com.thclouds.agent.plugin.mapping.conflicts.impl.HandlerResultPlugin
